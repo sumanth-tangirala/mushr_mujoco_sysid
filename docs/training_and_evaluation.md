@@ -71,12 +71,19 @@ All new options default to values that reproduce the original training behavior.
 {
   "training": {
     "regularization": {
+      "adapter_identity_weight": 0.0,
       "residual_l2_weight": 0.0,
       "friction_prior_weight": 0.0
     }
   }
 }
 ```
+
+- **adapter_identity_weight**: Optional stabilizer for control adapter.
+  - Loss term: `MSE(ut_eff, ut_raw)`.
+  - **Default: 0.0 (disabled)** - let adapter learn freely.
+  - **Emergency use only**: Set to very low values (1e-4 to 1e-3) if rollout loss causes pathological control remapping.
+  - Higher values defeat the purpose of having an adapter.
 
 - **residual_l2_weight**: L2 penalty on residual network output.
   - Loss term: `mean(residual^2)`.
