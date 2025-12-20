@@ -68,6 +68,15 @@ def _compute_regularization_loss(
     total_reg = torch.tensor(0.0, device=device)
     components = {}
 
+    # Adapter identity: optional emergency brake for pathological control remapping
+    # Typically used at very low weights (1e-4 to 1e-3) if rollout causes instability
+    adapter_weight = reg_cfg.get("adapter_identity_weight", 0.0)
+    if adapter_weight > 0.0 and "ut_eff" in aux:
+        ut_eff = aux["ut_eff"]
+        adapter_loss = torch.nn.functional.mse_loss(ut_eff, ut_raw)
+        total_reg = total_reg + adapter_weight * adapter_loss
+        components["adapter_identity"] = adapter_loss.item()
+
     residual_weight = reg_cfg.get("residual_l2_weight", 0.0)
     if residual_weight > 0.0 and "residual" in aux:
         residual = aux["residual"]
@@ -244,7 +253,8 @@ def train_one_epoch(
 
     # Determine if we need auxiliaries for regularization
     need_aux = (
-        reg_cfg.get("residual_l2_weight", 0.0) > 0.0
+        reg_cfg.get("adapter_identity_weight", 0.0) > 0.0
+        or reg_cfg.get("residual_l2_weight", 0.0) > 0.0
         or reg_cfg.get("friction_prior_weight", 0.0) > 0.0
     )
 
@@ -272,7 +282,7 @@ def train_one_epoch(
     running_one_step = 0.0
     running_rollout = 0.0
     running_pose = 0.0
-    running_reg = {k: 0.0 for k in ["residual_l2", "friction_prior"]}
+    running_reg = {k: 0.0 for k in ["adapter_identity", "residual_l2", "friction_prior"]}
     count = 0
 
     # Create snippet iterator if needed
@@ -654,8 +664,8 @@ def train_pipeline(config_path: str):
     print(f"Pose MSE: enabled={pose_cfg.get('enabled', False)}, weight={pose_cfg.get('weight', 0.1)}")
     print(f"Velocity weights: {loss_cfg.get('weights', {'vx': 1.0, 'vy': 1.0, 'w': 1.0})}")
     reg_cfg = cfg["training"]["regularization"]
-    print(f"Regularization: residual_l2={reg_cfg['residual_l2_weight']}, "
-          f"friction_prior={reg_cfg['friction_prior_weight']}")
+    print(f"Regularization: adapter_identity={reg_cfg['adapter_identity_weight']}, "
+          f"residual_l2={reg_cfg['residual_l2_weight']}, friction_prior={reg_cfg['friction_prior_weight']}")
     optim_cfg = cfg["training"]["optim"]
     print(f"Grad clip norm: {optim_cfg['grad_clip_norm']}")
     if cfg["model"].get("type", "structured") == "structured":
@@ -684,7 +694,7 @@ def train_pipeline(config_path: str):
             log_parts.append(f"pose {train_metrics['pose_mse']:.6f}")
 
         # Log regularization terms
-        for k in ["reg_residual_l2", "reg_friction_prior"]:
+        for k in ["reg_adapter_identity", "reg_residual_l2", "reg_friction_prior"]:
             if k in train_metrics and train_metrics[k] > 0:
                 short_name = k.replace("reg_", "")[:8]
                 log_parts.append(f"{short_name} {train_metrics[k]:.6f}")

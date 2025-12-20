@@ -26,6 +26,7 @@ def get_default_loss_config() -> Dict[str, Any]:
 def get_default_regularization_config() -> Dict[str, float]:
     """Return default regularization configuration (all disabled)."""
     return {
+        "adapter_identity_weight": 0.0,
         "residual_l2_weight": 0.0,
         "friction_prior_weight": 0.0,
     }
