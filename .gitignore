@@ -1,0 +1,11 @@
+**/data/
+**/env/
+**/experiments/
+tmp/
+**/tmp/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/*.pyw
+**/*.pyz
+**/*.egg-info/
