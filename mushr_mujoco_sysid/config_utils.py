@@ -19,6 +19,12 @@ def get_default_loss_config() -> Dict[str, Any]:
             "weight": 0.1,
             "components": ["x", "y"],
         },
+        "rollout_cvar": {
+            "enabled": False,
+            "alpha": 0.2,
+            "apply_to": "rollout_plus_pose",
+            "min_k": 1,
+        },
         "weights": {"vx": 1.0, "vy": 1.0, "w": 1.0},
     }
 
