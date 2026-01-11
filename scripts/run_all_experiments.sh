@@ -5,10 +5,52 @@
 # This script runs experiments 0-5 in order, with proper error handling
 # and logging. If any experiment fails, the script stops.
 #
+# Usage:
+#   ./run_all_experiments.sh              # Run all experiments from phase 0
+#   ./run_all_experiments.sh --start-from 2   # Start from phase 2
+#
 
 set -e  # Exit on error
 set -u  # Exit on undefined variable
 set -o pipefail  # Exit on pipe failure
+
+# Parse command-line arguments
+START_PHASE=0
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --start-from)
+            START_PHASE="$2"
+            shift 2
+            ;;
+        -h|--help)
+            echo "Usage: $0 [--start-from PHASE]"
+            echo ""
+            echo "Options:"
+            echo "  --start-from PHASE    Start from the specified phase (0-5)"
+            echo "  -h, --help            Show this help message"
+            echo ""
+            echo "Available phases:"
+            echo "  0: Baseline Sanity Check"
+            echo "  1: Trajectory-Based Validation (1a and 1b)"
+            echo "  2: Rollout + Pose Loss"
+            echo "  3: Friction Rescue"
+            echo "  4: Adapter-Only Ablation"
+            echo "  5: Adapter + Tiny Residual"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
+# Validate START_PHASE
+if ! [[ "$START_PHASE" =~ ^[0-5]$ ]]; then
+    echo "Error: START_PHASE must be between 0 and 5 (got: $START_PHASE)"
+    exit 1
+fi
 
 # Colors for output
 RED='\033[0;31m'
@@ -32,7 +74,12 @@ echo -e "${BLUE}================================================================
 echo ""
 echo "Project root: $PROJECT_ROOT"
 echo "Master log: $MASTER_LOG"
+echo "Starting from: Phase $START_PHASE"
 echo ""
+if [ "$START_PHASE" -gt 0 ]; then
+    echo -e "${YELLOW}Note: Skipping phases 0-$((START_PHASE-1))${NC}"
+    echo ""
+fi
 
 # Function to run a single experiment
 run_experiment() {
@@ -105,185 +152,215 @@ trap print_summary EXIT
 # EXPERIMENT 0: Baseline Sanity Check
 # ============================================================================
 
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${BLUE}  PHASE 0: Baseline Validation${NC}"
-echo -e "${BLUE}==================================================================${NC}"
-echo ""
-echo "Purpose: Prove backward compatibility"
-echo "Success: Match previous best numbers within ±5%"
-echo ""
-echo -e "${YELLOW}⚠  CRITICAL: If this fails, STOP and fix before proceeding${NC}"
-echo ""
+if [ "$START_PHASE" -le 0 ]; then
+    echo -e "${BLUE}==================================================================${NC}"
+    echo -e "${BLUE}  PHASE 0: Baseline Validation${NC}"
+    echo -e "${BLUE}==================================================================${NC}"
+    echo ""
+    echo "Purpose: Prove backward compatibility"
+    echo "Success: Match previous best numbers within ±5%"
+    echo ""
+    echo -e "${YELLOW}⚠  CRITICAL: If this fails, STOP and fix before proceeding${NC}"
+    echo ""
 
-if run_experiment 0 "Baseline Sanity Check" \
-    "${PROJECT_ROOT}/configs/experiments/exp0_baseline_sanity_check.json"; then
-    COMPLETED_EXPERIMENTS[0]=1
+    if run_experiment 0 "Baseline Sanity Check" \
+        "${PROJECT_ROOT}/configs/experiments/exp0_baseline_sanity_check.json"; then
+        COMPLETED_EXPERIMENTS[0]=1
+    else
+        echo -e "${RED}==================================================================${NC}"
+        echo -e "${RED}  BASELINE SANITY CHECK FAILED${NC}"
+        echo -e "${RED}==================================================================${NC}"
+        echo ""
+        echo "The baseline experiment failed to reproduce previous results."
+        echo "This indicates a potential implementation bug or environment issue."
+        echo ""
+        echo "DO NOT proceed with other experiments until this is fixed!"
+        echo ""
+        exit 1
+    fi
+
+    echo -e "${GREEN}==================================================================${NC}"
+    echo -e "${GREEN}  Baseline validated! Proceeding with improvements...${NC}"
+    echo -e "${GREEN}==================================================================${NC}"
+    echo ""
+    sleep 2
 else
-    echo -e "${RED}==================================================================${NC}"
-    echo -e "${RED}  BASELINE SANITY CHECK FAILED${NC}"
-    echo -e "${RED}==================================================================${NC}"
+    echo -e "${YELLOW}Skipping Phase 0: Baseline Validation${NC}"
     echo ""
-    echo "The baseline experiment failed to reproduce previous results."
-    echo "This indicates a potential implementation bug or environment issue."
-    echo ""
-    echo "DO NOT proceed with other experiments until this is fixed!"
-    echo ""
-    exit 1
 fi
-
-echo -e "${GREEN}==================================================================${NC}"
-echo -e "${GREEN}  Baseline validated! Proceeding with improvements...${NC}"
-echo -e "${GREEN}==================================================================${NC}"
-echo ""
-sleep 2
 
 # ============================================================================
 # EXPERIMENT 1: Trajectory Validation
 # ============================================================================
 
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${BLUE}  PHASE 1: Trajectory-Based Validation${NC}"
-echo -e "${BLUE}==================================================================${NC}"
-echo ""
-echo "Purpose: Fix validation selection (no train/val leakage)"
-echo "Configs: Residual-only and Direct models"
-echo ""
+if [ "$START_PHASE" -le 1 ]; then
+    echo -e "${BLUE}==================================================================${NC}"
+    echo -e "${BLUE}  PHASE 1: Trajectory-Based Validation${NC}"
+    echo -e "${BLUE}==================================================================${NC}"
+    echo ""
+    echo "Purpose: Fix validation selection (no train/val leakage)"
+    echo "Configs: Residual-only and Direct models"
+    echo ""
 
-if run_experiment 1a "Trajectory Validation (Residual)" \
-    "${PROJECT_ROOT}/configs/experiments/exp1_traj_val_residual.json"; then
-    COMPLETED_EXPERIMENTS[1]=1
+    if run_experiment 1a "Trajectory Validation (Residual)" \
+        "${PROJECT_ROOT}/configs/experiments/exp1_traj_val_residual.json"; then
+        COMPLETED_EXPERIMENTS[1]=1
+    fi
+
+    if run_experiment 1b "Trajectory Validation (Direct)" \
+        "${PROJECT_ROOT}/configs/experiments/exp1_traj_val_direct.json"; then
+        COMPLETED_EXPERIMENTS[2]=1
+    fi
+
+    echo -e "${GREEN}Phase 1 complete! Trajectory validation tested.${NC}"
+    echo ""
+    sleep 2
+else
+    echo -e "${YELLOW}Skipping Phase 1: Trajectory-Based Validation${NC}"
+    echo ""
 fi
-
-if run_experiment 1b "Trajectory Validation (Direct)" \
-    "${PROJECT_ROOT}/configs/experiments/exp1_traj_val_direct.json"; then
-    COMPLETED_EXPERIMENTS[2]=1
-fi
-
-echo -e "${GREEN}Phase 1 complete! Trajectory validation tested.${NC}"
-echo ""
-sleep 2
 
 # ============================================================================
 # EXPERIMENT 2: Rollout + Pose Loss
 # ============================================================================
 
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${BLUE}  PHASE 2: Rollout + Pose Loss${NC}"
-echo -e "${BLUE}==================================================================${NC}"
-echo ""
-echo "Purpose: Validate rollout pipeline, improve position accuracy"
-echo "Settings: Conservative (rollout 0.5, teacher forcing 0.2, pose 0.05)"
-echo ""
+if [ "$START_PHASE" -le 2 ]; then
+    echo -e "${BLUE}==================================================================${NC}"
+    echo -e "${BLUE}  PHASE 2: Rollout + Pose Loss${NC}"
+    echo -e "${BLUE}==================================================================${NC}"
+    echo ""
+    echo "Purpose: Validate rollout pipeline, improve position accuracy"
+    echo "Settings: Conservative (rollout 0.5, teacher forcing 0.2, pose 0.05)"
+    echo ""
 
-if run_experiment 2 "Rollout + Pose (Conservative)" \
-    "${PROJECT_ROOT}/configs/experiments/exp2_rollout_pose_residual.json"; then
-    COMPLETED_EXPERIMENTS[3]=1
+    if run_experiment 2 "Rollout + Pose (Conservative)" \
+        "${PROJECT_ROOT}/configs/experiments/exp2_rollout_pose_residual.json"; then
+        COMPLETED_EXPERIMENTS[3]=1
+    fi
+
+    echo -e "${GREEN}Phase 2 complete! Rollout pipeline tested.${NC}"
+    echo ""
+    sleep 2
+else
+    echo -e "${YELLOW}Skipping Phase 2: Rollout + Pose Loss${NC}"
+    echo ""
 fi
-
-echo -e "${GREEN}Phase 2 complete! Rollout pipeline tested.${NC}"
-echo ""
-sleep 2
 
 # ============================================================================
 # EXPERIMENT 3: Friction Rescue
 # ============================================================================
 
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${BLUE}  PHASE 3: Friction-Only Rescue${NC}"
-echo -e "${BLUE}==================================================================${NC}"
-echo ""
-echo "Purpose: Test if friction-only can be rescued with better parameterization"
-echo "Changes: sigmoid_range friction [0.25, 3.0], prior 0.01, rollout+pose"
-echo ""
-echo -e "${YELLOW}⚠  IMPORTANT: After this run, inspect friction_k values!${NC}"
-echo ""
+if [ "$START_PHASE" -le 3 ]; then
+    echo -e "${BLUE}==================================================================${NC}"
+    echo -e "${BLUE}  PHASE 3: Friction-Only Rescue${NC}"
+    echo -e "${BLUE}==================================================================${NC}"
+    echo ""
+    echo "Purpose: Test if friction-only can be rescued with better parameterization"
+    echo "Changes: sigmoid_range friction [0.25, 3.0], prior 0.01, rollout+pose"
+    echo ""
+    echo -e "${YELLOW}⚠  IMPORTANT: After this run, inspect friction_k values!${NC}"
+    echo ""
 
-if run_experiment 3 "Friction Rescue (Sigmoid Range)" \
-    "${PROJECT_ROOT}/configs/experiments/exp3_friction_rescue.json"; then
-    COMPLETED_EXPERIMENTS[4]=1
+    if run_experiment 3 "Friction Rescue (Sigmoid Range)" \
+        "${PROJECT_ROOT}/configs/experiments/exp3_friction_rescue.json"; then
+        COMPLETED_EXPERIMENTS[4]=1
 
+        echo ""
+        echo -e "${YELLOW}------------------------------------------------------------------${NC}"
+        echo -e "${YELLOW}  POST-EXPERIMENT DIAGNOSTIC CHECKLIST${NC}"
+        echo -e "${YELLOW}------------------------------------------------------------------${NC}"
+        echo ""
+        echo "Check friction_k values in logs/tensorboard:"
+        echo ""
+        echo "  - Saturates at k_min=0.25  → Need lower k_min (try 0.15)"
+        echo "  - Saturates at k_max=3.0   → Need higher k_max (try 4-5)"
+        echo "  - Stays near 1.0, static   → Prior too strong (try 0.001)"
+        echo "  - Varies widely, unstable  → Prior too weak (try 0.05)"
+        echo "  - In [0.5, 1.5], improves  → SUCCESS!"
+        echo ""
+    fi
+
+    echo -e "${GREEN}Phase 3 complete! Friction rescue tested.${NC}"
     echo ""
-    echo -e "${YELLOW}------------------------------------------------------------------${NC}"
-    echo -e "${YELLOW}  POST-EXPERIMENT DIAGNOSTIC CHECKLIST${NC}"
-    echo -e "${YELLOW}------------------------------------------------------------------${NC}"
-    echo ""
-    echo "Check friction_k values in logs/tensorboard:"
-    echo ""
-    echo "  - Saturates at k_min=0.25  → Need lower k_min (try 0.15)"
-    echo "  - Saturates at k_max=3.0   → Need higher k_max (try 4-5)"
-    echo "  - Stays near 1.0, static   → Prior too strong (try 0.001)"
-    echo "  - Varies widely, unstable  → Prior too weak (try 0.05)"
-    echo "  - In [0.5, 1.5], improves  → SUCCESS!"
+    sleep 2
+else
+    echo -e "${YELLOW}Skipping Phase 3: Friction-Only Rescue${NC}"
     echo ""
 fi
-
-echo -e "${GREEN}Phase 3 complete! Friction rescue tested.${NC}"
-echo ""
-sleep 2
 
 # ============================================================================
 # EXPERIMENT 4: Adapter-Only Strict Ablation
 # ============================================================================
 
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${BLUE}  PHASE 4: Adapter-Only Ablation${NC}"
-echo -e "${BLUE}==================================================================${NC}"
-echo ""
-echo "Purpose: Evidence for 'adapter alone is insufficient'"
-echo "Expectation: May plateau - this is valuable ablation evidence"
-echo ""
+if [ "$START_PHASE" -le 4 ]; then
+    echo -e "${BLUE}==================================================================${NC}"
+    echo -e "${BLUE}  PHASE 4: Adapter-Only Ablation${NC}"
+    echo -e "${BLUE}==================================================================${NC}"
+    echo ""
+    echo "Purpose: Evidence for 'adapter alone is insufficient'"
+    echo "Expectation: May plateau - this is valuable ablation evidence"
+    echo ""
 
-if run_experiment 4 "Adapter-Only Strict Ablation" \
-    "${PROJECT_ROOT}/configs/experiments/exp4_adapter_strict_ablation.json"; then
-    COMPLETED_EXPERIMENTS[5]=1
+    if run_experiment 4 "Adapter-Only Strict Ablation" \
+        "${PROJECT_ROOT}/configs/experiments/exp4_adapter_strict_ablation.json"; then
+        COMPLETED_EXPERIMENTS[5]=1
+    fi
+
+    echo -e "${GREEN}Phase 4 complete! Adapter-only ablation tested.${NC}"
+    echo ""
+    sleep 2
+else
+    echo -e "${YELLOW}Skipping Phase 4: Adapter-Only Ablation${NC}"
+    echo ""
 fi
-
-echo -e "${GREEN}Phase 4 complete! Adapter-only ablation tested.${NC}"
-echo ""
-sleep 2
 
 # ============================================================================
 # EXPERIMENT 5: Adapter + Tiny Residual
 # ============================================================================
 
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${BLUE}  PHASE 5: Adapter + Tiny Residual${NC}"
-echo -e "${BLUE}==================================================================${NC}"
-echo ""
-echo "Purpose: Test if plant mismatch is representable by control remapping"
-echo "Key: Strong L2 penalty (0.05) keeps residual small"
-echo ""
-echo "Interpretation:"
-echo "  - If Exp 4 fails but this succeeds → adapter alone insufficient"
-echo "  - If residual grows large → this is just 'residual model'"
-echo "  - If residual stays tiny & good → ideal compromise"
-echo ""
+if [ "$START_PHASE" -le 5 ]; then
+    echo -e "${BLUE}==================================================================${NC}"
+    echo -e "${BLUE}  PHASE 5: Adapter + Tiny Residual${NC}"
+    echo -e "${BLUE}==================================================================${NC}"
+    echo ""
+    echo "Purpose: Test if plant mismatch is representable by control remapping"
+    echo "Key: Strong L2 penalty (0.05) keeps residual small"
+    echo ""
+    echo "Interpretation:"
+    echo "  - If Exp 4 fails but this succeeds → adapter alone insufficient"
+    echo "  - If residual grows large → this is just 'residual model'"
+    echo "  - If residual stays tiny & good → ideal compromise"
+    echo ""
 
-if run_experiment 5 "Adapter + Tiny Residual" \
-    "${PROJECT_ROOT}/configs/experiments/exp5_adapter_tiny_residual.json"; then
-    COMPLETED_EXPERIMENTS[6]=1
+    if run_experiment 5 "Adapter + Tiny Residual" \
+        "${PROJECT_ROOT}/configs/experiments/exp5_adapter_tiny_residual.json"; then
+        COMPLETED_EXPERIMENTS[6]=1
 
+        echo ""
+        echo -e "${YELLOW}------------------------------------------------------------------${NC}"
+        echo -e "${YELLOW}  POST-EXPERIMENT DIAGNOSTIC CHECKLIST${NC}"
+        echo -e "${YELLOW}------------------------------------------------------------------${NC}"
+        echo ""
+        echo "Check residual magnitudes in logs:"
+        echo ""
+        echo "  - Residual ~0.01, good perf   → Ideal (tiny but effective)"
+        echo "  - Residual >0.1, good perf    → Just 'residual model'"
+        echo "  - Residual ~0.01, bad perf    → Neither adapter nor tiny residual helps"
+        echo ""
+        echo "Compare Exp 4 vs Exp 5 eval_pos_mse:"
+        echo ""
+        echo "  - Large improvement → Plant mismatch NOT representable by adapter"
+        echo "  - Small improvement → Adapter is nearly sufficient"
+        echo ""
+    fi
+
+    echo -e "${GREEN}Phase 5 complete! All experiments finished!${NC}"
     echo ""
-    echo -e "${YELLOW}------------------------------------------------------------------${NC}"
-    echo -e "${YELLOW}  POST-EXPERIMENT DIAGNOSTIC CHECKLIST${NC}"
-    echo -e "${YELLOW}------------------------------------------------------------------${NC}"
-    echo ""
-    echo "Check residual magnitudes in logs:"
-    echo ""
-    echo "  - Residual ~0.01, good perf   → Ideal (tiny but effective)"
-    echo "  - Residual >0.1, good perf    → Just 'residual model'"
-    echo "  - Residual ~0.01, bad perf    → Neither adapter nor tiny residual helps"
-    echo ""
-    echo "Compare Exp 4 vs Exp 5 eval_pos_mse:"
-    echo ""
-    echo "  - Large improvement → Plant mismatch NOT representable by adapter"
-    echo "  - Small improvement → Adapter is nearly sufficient"
+    sleep 2
+else
+    echo -e "${YELLOW}Skipping Phase 5: Adapter + Tiny Residual${NC}"
     echo ""
 fi
-
-echo -e "${GREEN}Phase 5 complete! All experiments finished!${NC}"
-echo ""
-sleep 2
 
 # ============================================================================
 # FINAL SUMMARY
