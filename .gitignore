@@ -1,6 +1,7 @@
 **/data/
 **/env/
 **/experiments/
+**/experiment_logs/
 tmp/
 **/tmp/
 **/*.pyc
