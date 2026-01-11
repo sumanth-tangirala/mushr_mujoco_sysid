@@ -1,6 +1,6 @@
 import json
-from dataclasses import dataclass
-from typing import Tuple
+from dataclasses import dataclass, field
+from typing import Dict, Tuple
 
 import numpy as np
 import torch
@@ -10,6 +10,22 @@ import torch
 class Standardizer:
     mean: np.ndarray
     std: np.ndarray
+    _torch_cache: Dict[Tuple[str, torch.dtype], Tuple[torch.Tensor, torch.Tensor]] = (
+        field(default_factory=dict, init=False, repr=False)
+    )
+
+    def _get_torch_mean_std(
+        self, device: torch.device, dtype: torch.dtype
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        key = (str(device), dtype)
+        cached = self._torch_cache.get(key)
+        if cached is not None:
+            return cached
+
+        mean = torch.as_tensor(self.mean, device=device, dtype=dtype)
+        std = torch.as_tensor(self.std, device=device, dtype=dtype)
+        self._torch_cache[key] = (mean, std)
+        return mean, std
 
     @classmethod
     def fit(cls, data: np.ndarray, eps: float = 1e-8) -> "Standardizer":
@@ -25,13 +41,11 @@ class Standardizer:
         return data * self.std + self.mean
 
     def transform_torch(self, data: torch.Tensor) -> torch.Tensor:
-        mean = torch.tensor(self.mean, device=data.device, dtype=data.dtype)
-        std = torch.tensor(self.std, device=data.device, dtype=data.dtype)
+        mean, std = self._get_torch_mean_std(data.device, data.dtype)
         return (data - mean) / std
 
     def inverse_torch(self, data: torch.Tensor) -> torch.Tensor:
-        mean = torch.tensor(self.mean, device=data.device, dtype=data.dtype)
-        std = torch.tensor(self.std, device=data.device, dtype=data.dtype)
+        mean, std = self._get_torch_mean_std(data.device, data.dtype)
         return data * std + mean
 
 
