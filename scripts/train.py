@@ -102,7 +102,8 @@ def _compute_rollout_loss(
     device: torch.device,
     pose_cfg: Optional[Dict] = None,
     target_std = None,
-) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, float]]:
+    return_per_sample: bool = False,
+) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, float], Optional[torch.Tensor], Optional[torch.Tensor]]:
     """
     Compute rollout loss over a batch of snippets.
 
@@ -114,11 +115,14 @@ def _compute_rollout_loss(
         device: Torch device
         pose_cfg: Optional pose loss configuration
         target_std: Standardizer for unstandardizing velocities (required for pose loss)
+        return_per_sample: If True, return per-sample losses for CVaR
 
     Returns:
         rollout_loss: Scalar tensor for rollout velocity MSE
         pose_loss: Scalar tensor for pose MSE (0 if pose_cfg is None or disabled)
         metrics: Dict with loss components
+        rollout_per_sample: Per-sample rollout losses [B] (if return_per_sample=True, else None)
+        pose_per_sample: Per-sample pose losses [B] (if return_per_sample=True, else None)
     """
     xd_seq = snippet_batch["xd"].to(device)  # (B, H+1, 3)
     ut_seq = snippet_batch["ut"].to(device)  # (B, H, 2)
@@ -142,6 +146,11 @@ def _compute_rollout_loss(
     vel_losses = []
     pose_losses = []
 
+    # For per-sample tracking (CVaR)
+    if return_per_sample:
+        vel_losses_per_sample = []  # List of [B] tensors
+        pose_losses_per_sample = []  # List of [B] tensors
+
     # For pose integration, we need to track the pose through SE(2)
     # Start from the ground truth initial pose
     if pose_cfg is not None and pose_cfg.get("enabled", False):
@@ -164,7 +173,13 @@ def _compute_rollout_loss(
         x_next = model(x_in, u_k, dt_arg)
 
         # Velocity loss: compare to ground truth xd_seq[:, k+1]
-        vel_loss_k = torch.nn.functional.mse_loss(x_next, xd_seq[:, k + 1])
+        if return_per_sample:
+            # Per-sample MSE: (B, 3) -> (B,)
+            vel_loss_k_per_sample = ((x_next - xd_seq[:, k + 1]) ** 2).mean(dim=1)
+            vel_losses_per_sample.append(vel_loss_k_per_sample)
+            vel_loss_k = vel_loss_k_per_sample.mean()
+        else:
+            vel_loss_k = torch.nn.functional.mse_loss(x_next, xd_seq[:, k + 1])
         vel_losses.append(vel_loss_k)
 
         # Pose loss: integrate and compare
@@ -172,7 +187,7 @@ def _compute_rollout_loss(
             # Unstandardize predicted velocities for physically accurate pose integration
             if target_std is not None:
                 x_next_raw = torch.tensor(
-                    target_std.inverse(x_next.cpu().numpy()),
+                    target_std.inverse(x_next.detach().cpu().numpy()),
                     device=device,
                     dtype=x_next.dtype,
                 )
@@ -182,7 +197,7 @@ def _compute_rollout_loss(
             pose_curr = plant.integrate_SE2(
                 pose_curr,
                 x_next_raw,
-                dt_k.unsqueeze(-1).unsqueeze(-1),
+                dt_k.unsqueeze(-1),
             )
 
             # Extract pose (x, y, theta) from SE(2) matrix
@@ -195,18 +210,36 @@ def _compute_rollout_loss(
 
             # Compute pose loss on selected components
             components = pose_cfg.get("components", ["x", "y"])
-            pose_err = torch.tensor(0.0, device=device)
-            for i, comp in enumerate(["x", "y", "theta"]):
-                if comp in components:
-                    if comp == "theta":
-                        # Angle difference handling
-                        diff = pred_pose[:, i] - gt_pose[:, i]
-                        diff = (diff + np.pi) % (2.0 * np.pi) - np.pi
-                        pose_err = pose_err + (diff ** 2).mean()
-                    else:
-                        pose_err = pose_err + ((pred_pose[:, i] - gt_pose[:, i]) ** 2).mean()
 
-            pose_losses.append(pose_err / len(components))
+            if return_per_sample:
+                # Per-sample pose loss
+                pose_err_per_sample = torch.zeros(B, device=device)
+                for i, comp in enumerate(["x", "y", "theta"]):
+                    if comp in components:
+                        if comp == "theta":
+                            # Angle difference handling
+                            diff = pred_pose[:, i] - gt_pose[:, i]
+                            diff = (diff + np.pi) % (2.0 * np.pi) - np.pi
+                            pose_err_per_sample = pose_err_per_sample + (diff ** 2)
+                        else:
+                            pose_err_per_sample = pose_err_per_sample + ((pred_pose[:, i] - gt_pose[:, i]) ** 2)
+                pose_err_per_sample = pose_err_per_sample / len(components)
+                pose_losses_per_sample.append(pose_err_per_sample)
+                pose_err = pose_err_per_sample.mean()
+            else:
+                pose_err = torch.tensor(0.0, device=device)
+                for i, comp in enumerate(["x", "y", "theta"]):
+                    if comp in components:
+                        if comp == "theta":
+                            # Angle difference handling
+                            diff = pred_pose[:, i] - gt_pose[:, i]
+                            diff = (diff + np.pi) % (2.0 * np.pi) - np.pi
+                            pose_err = pose_err + (diff ** 2).mean()
+                        else:
+                            pose_err = pose_err + ((pred_pose[:, i] - gt_pose[:, i]) ** 2).mean()
+                pose_err = pose_err / len(components)
+
+            pose_losses.append(pose_err)
 
         # Prepare for next step
         if detach_between_steps:
@@ -225,7 +258,18 @@ def _compute_rollout_loss(
     if pose_losses:
         metrics["rollout_pose_mse"] = pose_loss.item()
 
-    return rollout_loss, pose_loss, metrics
+    # Compute per-sample losses if requested
+    rollout_per_sample = None
+    pose_per_sample = None
+    if return_per_sample:
+        # Average over horizon: [H, B] -> [B]
+        rollout_per_sample = torch.stack(vel_losses_per_sample).mean(dim=0)
+        if pose_losses_per_sample:
+            pose_per_sample = torch.stack(pose_losses_per_sample).mean(dim=0)
+        else:
+            pose_per_sample = torch.zeros(B, device=device)
+
+    return rollout_loss, pose_loss, metrics, rollout_per_sample, pose_per_sample
 
 
 def train_one_epoch(
@@ -275,14 +319,28 @@ def train_one_epoch(
     pose_enabled = pose_cfg.get("enabled", False)
     pose_weight = pose_cfg.get("weight", 0.1)
 
+    # CVaR configuration
+    cvar_cfg = loss_cfg.get("rollout_cvar", {})
+    cvar_enabled = cvar_cfg.get("enabled", False) and rollout_enabled
+    if cvar_enabled:
+        cvar_alpha = cvar_cfg.get("alpha", 0.2)
+        cvar_apply_to = cvar_cfg.get("apply_to", "rollout_plus_pose")
+        cvar_min_k = cvar_cfg.get("min_k", 1)
+        # Validate alpha
+        if not (0.0 < cvar_alpha <= 1.0):
+            raise ValueError(f"rollout_cvar.alpha must be in (0, 1], got {cvar_alpha}")
+
     grad_clip_norm = optim_cfg.get("grad_clip_norm", 0.0)
 
     # Accumulators
     running_total = 0.0
     running_one_step = 0.0
     running_rollout = 0.0
+    running_rollout_mean = 0.0  # Mean over batch (for logging)
+    running_rollout_cvar = 0.0  # CVaR reduced (for logging)
     running_pose = 0.0
     running_reg = {k: 0.0 for k in ["adapter_identity", "residual_l2", "friction_prior"]}
+    running_k_used = 0.0
     count = 0
 
     # Create snippet iterator if needed
@@ -336,7 +394,10 @@ def train_one_epoch(
 
         # Rollout loss
         rollout_loss = torch.tensor(0.0, device=device)
+        rollout_loss_mean = torch.tensor(0.0, device=device)
+        rollout_loss_cvar = torch.tensor(0.0, device=device)
         pose_loss = torch.tensor(0.0, device=device)
+        k_used = 0
         if rollout_enabled and snippet_iter is not None:
             try:
                 snippet_batch = next(snippet_iter)
@@ -344,15 +405,58 @@ def train_one_epoch(
                 snippet_iter = iter(snippet_loader)
                 snippet_batch = next(snippet_iter)
 
-            rollout_loss, pose_loss, _ = _compute_rollout_loss(
-                model, snippet_batch, rollout_cfg, plant, device,
-                pose_cfg if pose_enabled else None,
-                target_std=target_std
-            )
-            total_loss = total_loss + rollout_weight * rollout_loss
+            if cvar_enabled:
+                # Compute per-sample losses for CVaR
+                _, _, _, rollout_per_sample, pose_per_sample = _compute_rollout_loss(
+                    model, snippet_batch, rollout_cfg, plant, device,
+                    pose_cfg if pose_enabled else None,
+                    target_std=target_std,
+                    return_per_sample=True
+                )
 
-            if pose_enabled:
-                total_loss = total_loss + pose_weight * pose_loss
+                # Compute per-sample total loss for CVaR selection
+                if cvar_apply_to == "rollout_plus_pose" and pose_enabled and pose_per_sample is not None:
+                    per_sample_total = rollout_weight * rollout_per_sample + pose_weight * pose_per_sample
+                else:
+                    per_sample_total = rollout_weight * rollout_per_sample
+
+                # CVaR reduction: select top-k hardest samples
+                B = per_sample_total.size(0)
+                k = max(cvar_min_k, int(np.ceil(cvar_alpha * B)))
+                k = min(k, B)  # Clamp to batch size
+
+                topk_vals, topk_indices = torch.topk(per_sample_total, k, largest=True)
+                rollout_loss_cvar = topk_vals.mean()
+                rollout_loss_mean = per_sample_total.mean()
+
+                # Use CVaR-selected loss for backprop
+                rollout_loss = rollout_loss_mean  # Store mean for logging
+                total_loss = total_loss + rollout_loss_cvar
+
+                # Pose loss: we already included it in CVaR if apply_to='rollout_plus_pose'
+                # But we still want to log it separately
+                if pose_enabled and pose_per_sample is not None:
+                    pose_loss = pose_per_sample.mean()
+                    # Don't add pose_loss again to total_loss if it was already included in CVaR
+                    if cvar_apply_to != "rollout_plus_pose":
+                        total_loss = total_loss + pose_weight * pose_loss
+
+                k_used = k
+
+            else:
+                # Standard mean reduction (original behavior)
+                rollout_loss, pose_loss, _, _, _ = _compute_rollout_loss(
+                    model, snippet_batch, rollout_cfg, plant, device,
+                    pose_cfg if pose_enabled else None,
+                    target_std=target_std,
+                    return_per_sample=False
+                )
+                rollout_loss_mean = rollout_loss
+                rollout_loss_cvar = rollout_loss
+                total_loss = total_loss + rollout_weight * rollout_loss
+
+                if pose_enabled:
+                    total_loss = total_loss + pose_weight * pose_loss
 
         total_loss.backward()
 
@@ -366,7 +470,10 @@ def train_one_epoch(
         running_total += total_loss.item() * batch_size
         running_one_step += one_step_loss.item() * batch_size
         running_rollout += rollout_loss.item() * batch_size
+        running_rollout_mean += rollout_loss_mean.item() * batch_size
+        running_rollout_cvar += rollout_loss_cvar.item() * batch_size
         running_pose += pose_loss.item() * batch_size
+        running_k_used += k_used
         count += batch_size
 
     # Compute averages
@@ -377,6 +484,11 @@ def train_one_epoch(
 
     if rollout_enabled:
         results["rollout_mse"] = running_rollout / max(count, 1)
+        if cvar_enabled:
+            results["rollout_mean"] = running_rollout_mean / max(count, 1)
+            results["rollout_cvar"] = running_rollout_cvar / max(count, 1)
+            results["k_used"] = running_k_used / max(len(loader), 1)
+            results["alpha"] = cvar_alpha
     if pose_enabled:
         results["pose_mse"] = running_pose / max(count, 1)
 
@@ -653,6 +765,11 @@ def train_pipeline(config_path: str):
     train_rollout_losses: List[float] = []
     train_pose_losses: List[float] = []
 
+    # Early stopping setup
+    early_stop_patience = cfg["training"].get("early_stop_patience", 0)
+    early_stop_min_delta = cfg["training"].get("early_stop_min_delta", 1e-6)
+    epochs_without_improvement = 0
+
     # Print training config summary
     print("=" * 60)
     print("Training Configuration Summary")
@@ -671,6 +788,10 @@ def train_pipeline(config_path: str):
     if cfg["model"].get("type", "structured") == "structured":
         fp = cfg["model"].get("friction_param", {})
         print(f"Friction param: mode={fp.get('mode', 'softplus_offset_1')}, k_min={fp.get('k_min', 0.2)}, k_max={fp.get('k_max', 2.0)}")
+    if early_stop_patience > 0:
+        print(f"Early stopping: enabled (patience={early_stop_patience}, min_delta={early_stop_min_delta})")
+    else:
+        print("Early stopping: disabled")
     print("=" * 60)
 
     for epoch in range(1, cfg["training"]["epochs"] + 1):
@@ -703,9 +824,20 @@ def train_pipeline(config_path: str):
 
         if scheduler is not None:
             scheduler.step()
-        if val_loss < best_val:
+
+        # Check for improvement
+        if val_loss < best_val - early_stop_min_delta:
             best_val = val_loss
+            epochs_without_improvement = 0
             torch.save({"model_state": model.state_dict(), "config": cfg}, ckpt_path)
+        else:
+            epochs_without_improvement += 1
+
+        # Early stopping check
+        if early_stop_patience > 0 and epochs_without_improvement >= early_stop_patience:
+            print(f"\nEarly stopping triggered after {epoch} epochs (no improvement for {early_stop_patience} epochs)")
+            print(f"Best validation loss: {best_val:.6f}")
+            break
 
         eval_vel = float("nan")
         eval_pos = float("nan")
