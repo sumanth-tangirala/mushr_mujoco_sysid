@@ -5,7 +5,13 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from torch.utils.data import Dataset
 
-from .dataloader import load_traj_data, split_train_eval_ids
+from .dataloader import (
+    load_traj_data,
+    split_train_eval_ids,
+    load_traj_v3_data,
+    split_train_eval_v3,
+    DATA_DIR_V3,
+)
 from .utils import Standardizer, split_indices
 
 
@@ -147,9 +153,193 @@ def _collect_samples_for_id(id_: int, data_dir: str) -> Tuple[List[Sample], dict
     return samples, trajectory
 
 
+def _collect_samples_for_v3_file(filename: str, data_dir: str) -> Tuple[List[Sample], dict]:
+    """
+    Collect samples from a v3 format trajectory file.
+
+    V3 format: x y theta xDot yDot thetaDot steering_angle velocity_desired
+
+    Returns:
+        List of Sample objects and a trajectory dict
+    """
+    traj_data = load_traj_v3_data(filename, data_dir=data_dir)
+    if traj_data is None or traj_data.shape[0] < 2:
+        return [], {}
+
+    # Extract data
+    x = traj_data[:, 0]
+    y = traj_data[:, 1]
+    theta = traj_data[:, 2]
+    vx = traj_data[:, 3]
+    vy = traj_data[:, 4]
+    w = traj_data[:, 5]
+    steering = traj_data[:, 6]
+    velocity = traj_data[:, 7]
+
+    # Build control array (velocity_cmd, steering_cmd) - note the order matches old format
+    ut = np.stack([velocity, steering], axis=1)
+
+    # Estimate dt from trajectory (assume constant dt, typically ~0.1s)
+    # For v3, we don't have explicit dt, so we use a default
+    dt = 0.1  # Default timestep
+
+    samples: List[Sample] = []
+    for t in range(traj_data.shape[0] - 1):
+        xd0 = np.array([vx[t], vy[t], w[t]], dtype=float)
+        xd1 = np.array([vx[t + 1], vy[t + 1], w[t + 1]], dtype=float)
+        samples.append(Sample(xd0=xd0, ut=ut[t], xd1=xd1, dt=dt))
+
+    dts = np.full(traj_data.shape[0], dt)
+    trajectory = {
+        "xd": np.stack([vx, vy, w], axis=1),
+        "pose": np.stack([x, y, theta], axis=1),
+        "ut": ut,
+        "dt": dts,
+        "id": filename,  # Use filename as ID for v3
+    }
+    return samples, trajectory
+
+
+def load_datasets_v3(cfg: Dict):
+    """
+    Load and split v3 datasets for training and evaluation.
+
+    V3 format uses trajectory filenames instead of IDs.
+
+    Returns:
+        train_dataset: TimestepDataset for training
+        val_dataset: TimestepDataset for validation
+        meta: Dict with standardizers, trajectories, and training trajectory info
+    """
+    data_cfg = cfg["data"]
+    data_dir = data_cfg.get("data_dir", DATA_DIR_V3)
+    num_eval = data_cfg["num_eval_trajectories"]
+    val_ratio = data_cfg["val_ratio"]
+    seed = cfg.get("seed", 42)
+    val_split_mode = data_cfg.get("val_split_mode", "timestep")
+
+    train_files, eval_files = split_train_eval_v3(num_eval)
+
+    # Collect all data from train and eval trajectory files
+    all_train_samples: List[Sample] = []
+    all_train_trajs: List[Dict] = []
+    heldout_trajs: List[Dict] = []
+
+    # Track which samples belong to which trajectory (for trajectory split)
+    traj_to_sample_indices: Dict[str, List[int]] = {}
+    sample_idx = 0
+
+    for filename in train_files:
+        samples, traj = _collect_samples_for_v3_file(filename, data_dir)
+        if samples:
+            traj_to_sample_indices[filename] = list(
+                range(sample_idx, sample_idx + len(samples))
+            )
+            sample_idx += len(samples)
+            all_train_samples.extend(samples)
+            all_train_trajs.append(traj)
+
+    for filename in eval_files:
+        _, traj = _collect_samples_for_v3_file(filename, data_dir)
+        if traj:
+            heldout_trajs.append(traj)
+
+    if not all_train_samples:
+        raise RuntimeError("No training samples could be loaded.")
+
+    # Debug: Check control variation within trajectories (optional)
+    if data_cfg.get("debug_control_variation", False):
+        print("\n=== DEBUG: Control Variation Analysis ===")
+        sample_size = min(5, len(all_train_trajs))
+        for i, traj in enumerate(all_train_trajs[:sample_size]):
+            ut = traj["ut"]  # (T, 2) - [velocity_cmd, steering_cmd]
+            filename = traj["id"]
+
+            # Count transitions where control changes
+            control_changes = 0
+            for t in range(len(ut) - 1):
+                if not np.allclose(ut[t], ut[t+1], rtol=1e-9, atol=1e-9):
+                    control_changes += 1
+
+            # Get unique control values
+            unique_controls = len(np.unique(ut.reshape(-1, 2), axis=0))
+
+            print(f"  Traj {i} ({filename}):")
+            print(f"    Timesteps: {len(ut)}")
+            print(f"    Control changes: {control_changes}/{len(ut)-1} ({100*control_changes/(len(ut)-1):.1f}%)")
+            print(f"    Unique controls: {unique_controls}")
+            print(f"    Velocity range: [{ut[:,0].min():.3f}, {ut[:,0].max():.3f}]")
+            print(f"    Steering range: [{ut[:,1].min():.3f}, {ut[:,1].max():.3f}]")
+        print("==========================================\n")
+
+    # Build full input/target arrays
+    inputs = np.stack(
+        [np.concatenate([s.xd0, s.ut, np.array([s.dt])]) for s in all_train_samples],
+        axis=0,
+    )
+    targets = np.stack([s.xd1 for s in all_train_samples], axis=0)
+
+    # Fit standardizers on ALL training samples (before split)
+    input_std = Standardizer.fit(inputs[:, :5])
+    target_std = Standardizer.fit(targets)
+
+    if val_split_mode == "trajectory":
+        # Split at the trajectory level
+        valid_train_files = [f for f in train_files if f in traj_to_sample_indices]
+        rng = np.random.default_rng(seed)
+        rng.shuffle(valid_train_files)
+
+        num_val_trajs = max(1, int(len(valid_train_files) * val_ratio))
+        val_traj_files = set(valid_train_files[:num_val_trajs])
+        train_traj_files = set(valid_train_files[num_val_trajs:])
+
+        train_sample_indices = []
+        val_sample_indices = []
+        train_trajs_final = []
+        val_trajs_final = []
+
+        for traj in all_train_trajs:
+            filename = traj["id"]
+            if filename in val_traj_files:
+                val_sample_indices.extend(traj_to_sample_indices[filename])
+                val_trajs_final.append(traj)
+            elif filename in train_traj_files:
+                train_sample_indices.extend(traj_to_sample_indices[filename])
+                train_trajs_final.append(traj)
+
+        train_idx = np.array(train_sample_indices)
+        val_idx = np.array(val_sample_indices)
+    else:
+        # Default: timestep-level split (original behavior)
+        train_idx, val_idx = split_indices(inputs.shape[0], val_ratio, seed)
+        train_trajs_final = all_train_trajs
+        val_trajs_final = []  # Not meaningful for timestep split
+
+    train_dataset = TimestepDataset(
+        inputs[train_idx], targets[train_idx], input_std, target_std
+    )
+    val_dataset = TimestepDataset(
+        inputs[val_idx], targets[val_idx], input_std, target_std
+    )
+
+    meta = {
+        "input_std": input_std,
+        "target_std": target_std,
+        "train_trajs": train_trajs_final,
+        "val_trajs": val_trajs_final,  # Only populated for trajectory split
+        "heldout_trajs": heldout_trajs,
+        "val_split_mode": val_split_mode,
+    }
+    return train_dataset, val_dataset, meta
+
+
 def load_datasets(cfg: Dict):
     """
     Load and split datasets for training and evaluation.
+
+    Auto-detects dataset version (v3 or legacy) based on data_dir or dataset_version config.
+    If data_dir ends with "v3" or dataset_version is "v3", uses the v3 loader.
+    Otherwise uses the legacy loader.
 
     Supports two validation split modes (controlled by data.val_split_mode):
     - "timestep" (default): Shuffle all samples from training trajectories,
@@ -163,7 +353,15 @@ def load_datasets(cfg: Dict):
         meta: Dict with standardizers, trajectories, and training trajectory info
     """
     data_cfg = cfg["data"]
-    data_dir = data_cfg["data_dir"]
+
+    # Auto-detect v3 dataset
+    dataset_version = data_cfg.get("dataset_version", "auto")
+    data_dir = data_cfg.get("data_dir", DATA_DIR_V3)
+
+    if dataset_version == "v3" or (dataset_version == "auto" and "v3" in data_dir):
+        return load_datasets_v3(cfg)
+
+    # Legacy loader
     num_eval = data_cfg["num_eval_trajectories"]
     val_ratio = data_cfg["val_ratio"]
     seed = cfg.get("seed", 42)
@@ -264,5 +462,7 @@ __all__ = [
     "TimestepDataset",
     "SnippetDataset",
     "_collect_samples_for_id",
+    "_collect_samples_for_v3_file",
     "load_datasets",
+    "load_datasets_v3",
 ]

@@ -8,10 +8,12 @@ MIN_PHYSICAL_RADIUS = L / 2  # Minimum radius for Ackermann geometry
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data", "sysid_trajs")
+DATA_DIR_V3 = os.path.join(BASE_DIR, "data", "sysid_trajs_v3")
 DEFAULT_OUTPUT = os.path.join(BASE_DIR, "data", "sysid_dataset.txt")
 FILTERED_OUTPUT = os.path.join(BASE_DIR, "data", "sysid_dataset_filtered.txt")
 VELOCITY_ONLY_OUTPUT = os.path.join(BASE_DIR, "data", "sysid_dataset_velocity_only.txt")
 SHUFFLED_INDICES_FILE = os.path.join(BASE_DIR, "data", "shuffled_indices.txt")
+SHUFFLED_INDICES_FILE_V3 = os.path.join(BASE_DIR, "data", "shuffled_indices_v3.txt")
 
 
 def _read_first_non_comment_line(path: str) -> Optional[str]:
@@ -104,6 +106,225 @@ def load_traj_data(id: int, data_dir: str = DATA_DIR):
         float(steering_real),
         dts,
     )
+
+
+# ============================================================================
+# V3 Dataset Functions (Unified stepwise format)
+# ============================================================================
+
+
+def _read_traj_v3(traj_path: str) -> np.ndarray:
+    """
+    Read a v3 format trajectory file.
+
+    V3 format: x y theta xDot yDot thetaDot steering_angle velocity_desired
+
+    Returns:
+        numpy array of shape (num_timesteps, 8) with columns:
+        [x, y, theta, xDot, yDot, thetaDot, steering, velocity]
+    """
+    rows: List[List[float]] = []
+    with open(traj_path, "r") as file:
+        for raw in file:
+            if raw.lstrip().startswith("#"):
+                continue
+            parts = raw.split()
+            if len(parts) >= 8:
+                x = float(parts[0])
+                y = float(parts[1])
+                theta = float(parts[2])
+                x_dot = float(parts[3])
+                y_dot = float(parts[4])
+                theta_dot = float(parts[5])
+                steering = float(parts[6])
+                velocity = float(parts[7])
+                rows.append([x, y, theta, x_dot, y_dot, theta_dot, steering, velocity])
+    return np.asarray(rows, dtype=float)
+
+
+def find_v3_trajectory_files(data_dir: str = DATA_DIR_V3, verbose: bool = False) -> List[str]:
+    """
+    Find all v3 format trajectory files in the directory.
+
+    Returns:
+        List of trajectory filenames (not full paths)
+    """
+    if not os.path.exists(data_dir):
+        if verbose:
+            print(f"Directory {data_dir} does not exist")
+        return []
+
+    files = os.listdir(data_dir)
+    # Match both traj_XXX.txt and mj_traj_eXXXX.txt patterns
+    traj_files = [f for f in files if f.endswith('.txt') and ('traj_' in f or 'mj_traj_' in f)]
+
+    if verbose:
+        print(f"  Found {len(traj_files)} trajectory files")
+        if traj_files:
+            print(f"  Sample files: {sorted(traj_files)[:5]}")
+
+    return sorted(traj_files)
+
+
+def load_traj_v3_data(filename: str, data_dir: str = DATA_DIR_V3) -> Optional[np.ndarray]:
+    """
+    Load a single v3 format trajectory file.
+
+    Args:
+        filename: Name of the trajectory file (e.g., "traj_000.txt" or "mj_traj_e0000.txt")
+        data_dir: Directory containing the trajectory files
+
+    Returns:
+        numpy array of shape (num_timesteps, 8) or None if error
+    """
+    filepath = os.path.join(data_dir, filename)
+    if not os.path.exists(filepath):
+        return None
+
+    try:
+        return _read_traj_v3(filepath)
+    except Exception:
+        return None
+
+
+def build_dataset_v3(
+    data_dir: str = DATA_DIR_V3,
+    trajectory_files: Optional[List[str]] = None,
+    velocity_only: bool = False,
+    verbose: bool = True,
+) -> Tuple[np.ndarray, np.ndarray, List[str]]:
+    """
+    Build dataset from v3 format trajectory files.
+
+    The v3 format already contains stepwise data with controls at each timestep.
+    We create training samples by using timestep t to predict timestep t+1.
+
+    Args:
+        data_dir: Directory containing v3 trajectory files
+        trajectory_files: Optional list of specific trajectory files to use
+                         If None, uses all files in data_dir
+        velocity_only: If True, only predict velocity states (no steering)
+        verbose: If True, print progress information
+
+    Returns:
+        Tuple of (X, Y, used_filenames) where:
+        - X: Input features [xdot_t, ydot_t, thetadot_t, steering_cmd, velocity_cmd]
+        - Y: Output features [xdot_t+1, ydot_t+1, thetadot_t+1] if velocity_only
+                            [xdot_t+1, ydot_t+1, thetadot_t+1] otherwise (no steering prediction for v3)
+        - used_filenames: List of trajectory filenames successfully loaded
+    """
+    if trajectory_files is None:
+        trajectory_files = find_v3_trajectory_files(data_dir, verbose=verbose)
+
+    total = len(trajectory_files)
+    if verbose:
+        print(f"Building dataset from {total} trajectory files...")
+
+    X_chunks: List[np.ndarray] = []
+    Y_chunks: List[np.ndarray] = []
+    used_filenames: List[str] = []
+    skipped = 0
+
+    for idx, filename in enumerate(trajectory_files, 1):
+        if verbose and (idx % 100 == 0 or idx == total):
+            print(f"Processing {idx}/{total} ({filename})...", end="\r")
+
+        traj_data = load_traj_v3_data(filename, data_dir=data_dir)
+        if traj_data is None or traj_data.shape[0] < 2:
+            skipped += 1
+            continue
+
+        # Extract state and control data
+        # traj_data columns: [x, y, theta, xDot, yDot, thetaDot, steering, velocity]
+        xdot = traj_data[:, 3]
+        ydot = traj_data[:, 4]
+        thetadot = traj_data[:, 5]
+        steering = traj_data[:, 6]
+        velocity = traj_data[:, 7]
+
+        # Create input-output pairs: t -> t+1
+        xdot_t = xdot[:-1]
+        ydot_t = ydot[:-1]
+        thetadot_t = thetadot[:-1]
+        steering_t = steering[:-1]
+        velocity_t = velocity[:-1]
+
+        xdot_t1 = xdot[1:]
+        ydot_t1 = ydot[1:]
+        thetadot_t1 = thetadot[1:]
+
+        # Input: current state velocities + controls
+        X = np.stack([xdot_t, ydot_t, thetadot_t, steering_t, velocity_t], axis=1)
+
+        # Output: next state velocities (no steering for v3)
+        Y = np.stack([xdot_t1, ydot_t1, thetadot_t1], axis=1)
+
+        X_chunks.append(X)
+        Y_chunks.append(Y)
+        used_filenames.append(filename)
+
+    if verbose:
+        print()
+        print(f"Successfully loaded: {len(used_filenames)}/{total}")
+        print(f"Skipped (error or short traj): {skipped}/{total}")
+
+    if not X_chunks:
+        return np.empty((0, 5), dtype=float), np.empty((0, 3), dtype=float), []
+
+    X_all = np.concatenate(X_chunks, axis=0)
+    Y_all = np.concatenate(Y_chunks, axis=0)
+    return X_all, Y_all, used_filenames
+
+
+def load_shuffled_filenames_v3(
+    shuffled_indices_path: str = SHUFFLED_INDICES_FILE_V3,
+) -> List[str]:
+    """
+    Load trajectory filenames from the v3 shuffled indices file.
+
+    Args:
+        shuffled_indices_path: Path to the shuffled indices file
+
+    Returns:
+        List of trajectory filenames in shuffled order
+    """
+    filenames = []
+    with open(shuffled_indices_path, "r") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#"):
+                filenames.append(line)
+    return filenames
+
+
+def split_train_eval_v3(
+    num_eval_trajectories: int,
+    shuffled_indices_path: str = SHUFFLED_INDICES_FILE_V3
+) -> Tuple[List[str], List[str]]:
+    """
+    Split shuffled v3 trajectory filenames into training and evaluation sets.
+
+    Args:
+        num_eval_trajectories: Number of trajectories to reserve for evaluation (taken from the end of the list)
+        shuffled_indices_path: Path to the shuffled indices file
+
+    Returns:
+        Tuple of (train_filenames, eval_filenames)
+    """
+    all_filenames = load_shuffled_filenames_v3(shuffled_indices_path)
+
+    if num_eval_trajectories > len(all_filenames):
+        raise ValueError(
+            f"num_eval_trajectories ({num_eval_trajectories}) cannot be greater than total files ({len(all_filenames)})"
+        )
+
+    # Last num_eval_trajectories for evaluation, rest for training
+    eval_filenames = all_filenames[-num_eval_trajectories:] if num_eval_trajectories > 0 else []
+    train_filenames = (
+        all_filenames[:-num_eval_trajectories] if num_eval_trajectories > 0 else all_filenames
+    )
+
+    return train_filenames, eval_filenames
 
 
 def _extract_ids(paths: List[str], pattern: str) -> set:
