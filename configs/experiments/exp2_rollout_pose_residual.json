@@ -4,8 +4,8 @@
   "_settings": "Conservative: rollout weight 0.5, teacher forcing 0.2, pose weight 0.05, w weight 2.0",
   "seed": 42,
   "data": {
-    "data_dir": "data/sysid_trajs",
-    "num_eval_trajectories": 50,
+    "data_dir": "data/sysid_trajs_v3",
+    "num_eval_trajectories": 150,
     "val_ratio": 0.1,
     "val_split_mode": "trajectory"
   },
@@ -38,6 +38,8 @@
     "run_name": "residual_conservative",
     "ckpt_name": "best.pt",
     "eval_every": 5,
+    "early_stop_patience": 50,
+    "early_stop_min_delta": 1e-6,
     "lr_scheduler": "cosine",
     "lr_t_max": 1000,
     "lr_eta_min": 1e-6,
