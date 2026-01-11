@@ -1,0 +1,87 @@
+{
+  "_comment": "Experiment 2: Rollout + pose loss on strong model - Seed 4 + CVaR alpha=0.2",
+  "_purpose": "Seed sweep to measure variance",
+  "_settings": "Conservative: rollout weight 0.5, teacher forcing 0.2, pose weight 0.05, w weight 2.0",
+  "seed": 4,
+  "data": {
+    "data_dir": "data/sysid_trajs",
+    "num_eval_trajectories": 50,
+    "val_ratio": 0.1,
+    "val_split_mode": "trajectory"
+  },
+  "model": {
+    "type": "structured",
+    "learn_friction": false,
+    "learn_residual": true,
+    "friction_use_dt": true,
+    "friction_use_delta": true,
+    "friction_use_vy": true,
+    "control_adapter": {
+      "enabled": true,
+      "include_speed_mag_steer": true,
+      "include_speed_sign_steer": true,
+      "include_speed_mag_acc": true,
+      "include_speed_sign_acc": true,
+      "include_vy_acc": true,
+      "include_w_acc": true,
+      "steer_output_scale": 0.6,
+      "acc_output_scale": 1.0
+    }
+  },
+  "training": {
+    "batch_size": 256,
+    "epochs": 1000,
+    "lr": 0.001,
+    "weight_decay": 0.0,
+    "device": "cuda",
+    "run_root": "experiments-v2/exp2_seed_sweep_cvar0p2",
+    "run_name": "residual_seed4_cvar0p2",
+    "ckpt_name": "best.pt",
+    "eval_every": 5,
+    "early_stop_patience": 50,
+    "early_stop_min_delta": 1e-06,
+    "lr_scheduler": "cosine",
+    "lr_t_max": 1000,
+    "lr_eta_min": 1e-06,
+    "loss": {
+      "one_step_mse": {
+        "enabled": true,
+        "weight": 1.0
+      },
+      "rollout_mse": {
+        "enabled": true,
+        "horizon": 10,
+        "weight": 0.5,
+        "teacher_forcing_prob": 0.2,
+        "detach_between_steps": false
+      },
+      "pose_mse": {
+        "enabled": true,
+        "weight": 0.05,
+        "components": [
+          "x",
+          "y"
+        ]
+      },
+      "weights": {
+        "vx": 1.0,
+        "vy": 1.0,
+        "w": 2.0
+      },
+      "rollout_cvar": {
+        "enabled": true,
+        "alpha": 0.2,
+        "apply_to": "rollout_plus_pose",
+        "min_k": 1
+      }
+    },
+    "regularization": {
+      "adapter_identity_weight": 0.0,
+      "residual_l2_weight": 0.0,
+      "friction_prior_weight": 0.0
+    },
+    "optim": {
+      "grad_clip_norm": 1.0
+    }
+  }
+}

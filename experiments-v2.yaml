@@ -1,0 +1,74 @@
+session_name: mushr_exp_v2
+windows:
+  # GPU 0: 3 experiments in parallel
+  - window_name: gpu0
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=0 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed0.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep/residual_seed0 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=0 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed0_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep_cvar0p2/residual_seed0_cvar0p2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=0 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_xytheta.json && python scripts/eval.py --exp-dir experiments-v2/exp2_xytheta/residual_xytheta --num-eval-trajs 50" &
+          - wait
+
+  - window_name: gpu1
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=1 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed1.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep/residual_seed1 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=1 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed1_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep_cvar0p2/residual_seed1_cvar0p2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=1 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_xytheta_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_xytheta_cvar0p2/residual_xytheta_cvar0p2 --num-eval-trajs 50" &
+          - wait
+
+  - window_name: gpu2
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=2 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep/residual_seed2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=2 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed2_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep_cvar0p2/residual_seed2_cvar0p2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=2 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_resl2_0p01.json && python scripts/eval.py --exp-dir experiments-v2/exp2_resl2_0p01/residual_resl2_0p01 --num-eval-trajs 50" &
+          - wait
+
+  - window_name: gpu3
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=3 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed3.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep/residual_seed3 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=3 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed3_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep_cvar0p2/residual_seed3_cvar0p2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=3 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_resl2_0p01_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_resl2_0p01_cvar0p2/residual_resl2_0p01_cvar0p2 --num-eval-trajs 50" &
+          - wait
+
+  - window_name: gpu4
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=4 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed4.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep/residual_seed4 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=4 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_seed4_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_seed_sweep_cvar0p2/residual_seed4_cvar0p2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=4 bash -c "python scripts/train.py --config configs/experiments-v2/exp6_direct_rollout_pose.json && python scripts/eval.py --exp-dir experiments-v2/exp6_direct_rollout_pose/direct_rollout_pose --num-eval-trajs 50" &
+          - wait
+
+  - window_name: gpu5
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=5 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_h20.json && python scripts/eval.py --exp-dir experiments-v2/exp2_h20/residual_h20 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=5 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_h20_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_h20_cvar0p2/residual_h20_cvar0p2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=5 bash -c "python scripts/train.py --config configs/experiments-v2/exp6_direct_rollout_pose_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp6_direct_rollout_pose_cvar0p2/direct_rollout_pose_cvar0p2 --num-eval-trajs 50" &
+          - wait
+
+  - window_name: gpu6
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=6 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_tf0.json && python scripts/eval.py --exp-dir experiments-v2/exp2_tf0/residual_tf0 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=6 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_tf0_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_tf0_cvar0p2/residual_tf0_cvar0p2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=6 bash -c "python scripts/train.py --config configs/experiments-v2/exp7_direct_no_adapter_rollout_pose.json && python scripts/eval.py --exp-dir experiments-v2/exp7_direct_no_adapter_rollout_pose/direct_no_adapter_rollout_pose --num-eval-trajs 50" &
+          - wait
+
+  - window_name: gpu7
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=7 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_tf0p5.json && python scripts/eval.py --exp-dir experiments-v2/exp2_tf0p5/residual_tf0p5 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=7 bash -c "python scripts/train.py --config configs/experiments-v2/exp2_tf0p5_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp2_tf0p5_cvar0p2/residual_tf0p5_cvar0p2 --num-eval-trajs 50" &
+          - CUDA_VISIBLE_DEVICES=7 bash -c "python scripts/train.py --config configs/experiments-v2/exp7_direct_no_adapter_rollout_pose_cvar0p2.json && python scripts/eval.py --exp-dir experiments-v2/exp7_direct_no_adapter_rollout_pose_cvar0p2/direct_no_adapter_rollout_pose_cvar0p2 --num-eval-trajs 50" &
+          - wait
