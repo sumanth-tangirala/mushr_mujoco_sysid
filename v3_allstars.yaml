@@ -1,0 +1,73 @@
+session_name: v3_allstars
+windows:
+  # GPU 0: CONFIG A - Exp2 Replay
+  - window_name: v3A_gpu0
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=0 python scripts/train.py --config configs/v3_allstars_controls_vary/v3A_struct_exp2_replay_seed4.json
+          - echo "Training complete for v3A. Run eval with:"
+          - echo "python scripts/eval.py --exp-dir experiments/v3_allstars_controls_vary/v3A_struct_exp2_replay_seed4 --num-eval-trajs 50"
+
+  # GPU 1: CONFIG B - Structured h10 TF=0
+  - window_name: v3B_gpu1
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=1 python scripts/train.py --config configs/v3_allstars_controls_vary/v3B_struct_h10_tf0_seed4.json
+          - echo "Training complete for v3B. Run eval with:"
+          - echo "python scripts/eval.py --exp-dir experiments/v3_allstars_controls_vary/v3B_struct_h10_tf0_seed4 --num-eval-trajs 50"
+
+  # GPU 2: CONFIG C - Structured h20 TF=0 (MOST PROMISING)
+  - window_name: v3C_gpu2
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=2 python scripts/train.py --config configs/v3_allstars_controls_vary/v3C_struct_h20_tf0_seed4.json
+          - echo "Training complete for v3C (MOST PROMISING). Run eval with:"
+          - echo "python scripts/eval.py --exp-dir experiments/v3_allstars_controls_vary/v3C_struct_h20_tf0_seed4 --num-eval-trajs 50"
+
+  # GPU 3: CONFIG D - Structured h20 TF=0 seed2
+  - window_name: v3D_gpu3
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=3 python scripts/train.py --config configs/v3_allstars_controls_vary/v3D_struct_h20_tf0_seed2.json
+          - echo "Training complete for v3D. Run eval with:"
+          - echo "python scripts/eval.py --exp-dir experiments/v3_allstars_controls_vary/v3D_struct_h20_tf0_seed2 --num-eval-trajs 50"
+
+  # GPU 4: CONFIG E - Structured h20 TF=0 with residual L2
+  - window_name: v3E_gpu4
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=4 python scripts/train.py --config configs/v3_allstars_controls_vary/v3E_struct_h20_tf0_resl2_0p01_seed4.json
+          - echo "Training complete for v3E. Run eval with:"
+          - echo "python scripts/eval.py --exp-dir experiments/v3_allstars_controls_vary/v3E_struct_h20_tf0_resl2_0p01_seed4 --num-eval-trajs 50"
+
+  # GPU 5: CONFIG F - Structured h20 TF=0 with pose x,y,theta
+  - window_name: v3F_gpu5
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=5 python scripts/train.py --config configs/v3_allstars_controls_vary/v3F_struct_h20_tf0_pose_xytheta_seed4.json
+          - echo "Training complete for v3F. Run eval with:"
+          - echo "python scripts/eval.py --exp-dir experiments/v3_allstars_controls_vary/v3F_struct_h20_tf0_pose_xytheta_seed4 --num-eval-trajs 50"
+
+  # GPU 6: CONFIG G - Direct MLP no adapter
+  - window_name: v3G_gpu6
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=6 python scripts/train.py --config configs/v3_allstars_controls_vary/v3G_direct_no_adapter_h20_tf0_seed4.json
+          - echo "Training complete for v3G. Run eval with:"
+          - echo "python scripts/eval.py --exp-dir experiments/v3_allstars_controls_vary/v3G_direct_no_adapter_h20_tf0_seed4 --num-eval-trajs 50"
+
+  # GPU 7: CONFIG H - Direct MLP with adapter
+  - window_name: v3H_gpu7
+    panes:
+      - shell_command:
+          - cd /common/home/st1122/Projects/mushr_mujoco_sysid
+          - CUDA_VISIBLE_DEVICES=7 python scripts/train.py --config configs/v3_allstars_controls_vary/v3H_direct_with_adapter_h20_tf0_seed4.json
+          - echo "Training complete for v3H. Run eval with:"
+          - echo "python scripts/eval.py --exp-dir experiments/v3_allstars_controls_vary/v3H_direct_with_adapter_h20_tf0_seed4 --num-eval-trajs 50"
