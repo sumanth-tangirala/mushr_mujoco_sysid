@@ -8,8 +8,12 @@ from typing import Dict, List
 import numpy as np
 import torch
 
-from mushr_mujoco_sysid.dataloader import load_shuffled_indices
-from mushr_mujoco_sysid.data import _collect_samples_for_id, load_datasets
+from mushr_mujoco_sysid.dataloader import load_shuffled_indices, load_shuffled_filenames_v3, find_v3_trajectory_files
+from mushr_mujoco_sysid.data import (
+    _collect_samples_for_id,
+    _collect_samples_for_v3_file,
+    load_datasets,
+)
 from mushr_mujoco_sysid.evaluation import TrajectoryEvaluator, compute_traj_errors
 from mushr_mujoco_sysid.model import LearnedDynamicsModel
 from mushr_mujoco_sysid.model_factory import build_model
@@ -64,11 +68,11 @@ def evaluate_model(
 
     device = torch.device(cfg.get("training", {}).get("device", "cpu"))
 
-    # Ensure data_dir points to an existing directory; if not, fall back to repo data/sysid_trajs.
+    # Ensure data_dir points to an existing directory; if not, fall back to repo data/sysid_trajs_v3.
     data_cfg = cfg.get("data", {})
     data_dir_cfg = data_cfg.get("data_dir")
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    fallback_data_dir = os.path.join(repo_root, "data", "sysid_trajs")
+    fallback_data_dir = os.path.join(repo_root, "data", "sysid_trajs_v3")
     if not data_dir_cfg or not os.path.isdir(data_dir_cfg):
         if os.path.isdir(fallback_data_dir):
             cfg.setdefault("data", {})["data_dir"] = fallback_data_dir
@@ -108,9 +112,22 @@ def evaluate_model(
 
     speed_metrics = _benchmark_model_speed(dyn_model)
 
-    all_ids = load_shuffled_indices()
-    if not all_ids:
-        raise RuntimeError("No trajectory IDs found in shuffled indices file.")
+    data_dir = cfg["data"]["data_dir"]
+
+    # Detect if data directory contains v3 format trajectories
+    v3_files = find_v3_trajectory_files(data_dir, verbose=False)
+    is_v3_format = len(v3_files) > 0
+
+    if is_v3_format:
+        # Use v3 format loading
+        all_ids = load_shuffled_filenames_v3()
+        if not all_ids:
+            raise RuntimeError("No trajectory filenames found in v3 shuffled indices file.")
+    else:
+        # Use old format loading
+        all_ids = load_shuffled_indices()
+        if not all_ids:
+            raise RuntimeError("No trajectory IDs found in shuffled indices file.")
 
     if num_eval_trajs <= 0:
         raise ValueError("num_eval_trajs must be positive.")
@@ -127,8 +144,6 @@ def evaluate_model(
     else:
         selected_ids = all_ids[-num_eval_trajs:]
 
-    data_dir = cfg["data"]["data_dir"]
-
     traj_metrics = []
     per_traj_results = []
     gt_paths = []
@@ -140,7 +155,10 @@ def evaluate_model(
         plt = None
 
     for tid in selected_ids:
-        samples, traj = _collect_samples_for_id(tid, data_dir)
+        if is_v3_format:
+            samples, traj = _collect_samples_for_v3_file(tid, data_dir)
+        else:
+            samples, traj = _collect_samples_for_id(tid, data_dir)
         _ = samples
         if not traj:
             continue
@@ -166,7 +184,7 @@ def evaluate_model(
         )
         if not metrics:
             continue
-        metrics["id"] = int(tid)
+        metrics["id"] = tid if is_v3_format else int(tid)
         traj_metrics.append(metrics)
 
         gt_paths.append(pose[:, :2])
@@ -174,7 +192,7 @@ def evaluate_model(
 
         per_traj_results.append(
             {
-                "id": int(tid),
+                "id": tid if is_v3_format else int(tid),
                 "traj_len": int(min(pose.shape[0], pose_pred.shape[0])),
                 **metrics,
             }
@@ -225,7 +243,7 @@ def evaluate_model(
         print("No valid trajectories were evaluated.")
         return
 
-    evaluated_ids = [int(m["id"]) for m in traj_metrics]
+    evaluated_ids = [m["id"] for m in traj_metrics]
 
     avg_traj_state_mse = float(np.mean([m["traj_state_mse"] for m in traj_metrics]))
     avg_traj_pos_mse = float(np.mean([m["traj_pos_mse"] for m in traj_metrics]))
