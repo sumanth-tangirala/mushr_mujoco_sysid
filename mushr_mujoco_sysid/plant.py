@@ -138,7 +138,10 @@ class MushrPlant:
         T_beta = self.SE2(zeros_like_beta, zeros_like_beta, beta_val)
         T_beta_prev = self.SE2(zeros_like_beta, zeros_like_beta, beta_prev)
 
-        Tbpinv = T_beta_prev.inverse()
+        # For SE(2) elements with zero translation (x=y=0), the inverse is just
+        # the rotation by -theta. Avoiding a generic matrix inverse here also
+        # makes this path more CUDA-Graph friendly.
+        Tbpinv = self.SE2(zeros_like_beta, zeros_like_beta, -beta_prev)
         qd0_adj = self.adjoint(Tbpinv, xd0)
         qd0_sign = torch.copysign(torch.ones_like(AccIn), AccIn).unsqueeze(-1)
         qd0 = qd0_sign * qd0_adj
