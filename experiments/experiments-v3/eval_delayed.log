@@ -1,0 +1,138 @@
+Searching for experiments in: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary
+Found experiment: v3A_struct_exp2_replay_seed4 -> /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3A_struct_exp2_replay_seed4/v3A_struct_exp2_replay_seed4
+Found experiment: v3B_struct_h10_tf0_seed4 -> /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3B_struct_h10_tf0_seed4/v3B_struct_h10_tf0_seed4
+Found experiment: v3C_struct_h20_tf0_seed4 -> /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3C_struct_h20_tf0_seed4/v3C_struct_h20_tf0_seed4
+Found experiment: v3D_struct_h20_tf0_seed2 -> /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3D_struct_h20_tf0_seed2/v3D_struct_h20_tf0_seed2
+Found experiment: v3E_struct_h20_tf0_resl2_0p01_seed4 -> /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3E_struct_h20_tf0_resl2_0p01_seed4/v3E_struct_h20_tf0_resl2_0p01_seed4
+Found experiment: v3F_struct_h20_tf0_pose_xytheta_seed4 -> /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3F_struct_h20_tf0_pose_xytheta_seed4/v3F_struct_h20_tf0_pose_xytheta_seed4
+Found experiment: v3G_direct_no_adapter_h20_tf0_seed4 -> /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3G_direct_no_adapter_h20_tf0_seed4/v3G_direct_no_adapter_h20_tf0_seed4
+Found experiment: v3H_direct_with_adapter_h20_tf0_seed4 -> /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3H_direct_with_adapter_h20_tf0_seed4/v3H_direct_with_adapter_h20_tf0_seed4
+
+Found 8 experiments to evaluate
+
+======================================================================
+Waiting 4.0 hours before starting evaluation...
+Start time: 2026-01-05 00:20:19
+Evaluation will begin at: 2026-01-05 04:20:19
+======================================================================
+
+[00:30:20] Time remaining: 3h 49m
+[00:40:20] Time remaining: 3h 39m
+[00:50:21] Time remaining: 3h 29m
+[01:00:22] Time remaining: 3h 19m
+[01:10:22] Time remaining: 3h 9m
+[01:20:23] Time remaining: 2h 59m
+[01:30:23] Time remaining: 2h 49m
+[01:40:24] Time remaining: 2h 39m
+[01:50:24] Time remaining: 2h 29m
+[02:00:25] Time remaining: 2h 19m
+[02:10:26] Time remaining: 2h 9m
+[02:20:26] Time remaining: 1h 59m
+[02:30:27] Time remaining: 1h 49m
+[02:40:27] Time remaining: 1h 39m
+[02:50:28] Time remaining: 1h 29m
+[03:00:28] Time remaining: 1h 19m
+[03:10:29] Time remaining: 1h 9m
+[03:20:30] Time remaining: 0h 59m
+[03:30:30] Time remaining: 0h 49m
+[03:40:31] Time remaining: 0h 39m
+[03:50:31] Time remaining: 0h 29m
+[04:00:32] Time remaining: 0h 19m
+[04:10:33] Time remaining: 0h 9m
+
+======================================================================
+Delay complete! Starting evaluation at 2026-01-05 04:20:19
+======================================================================
+
+
+======================================================================
+Evaluating: v3A_struct_exp2_replay_seed4
+Directory: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3A_struct_exp2_replay_seed4/v3A_struct_exp2_replay_seed4
+======================================================================
+Running: /common/home/st1122/Projects/mushr_mujoco_sysid/env/bin/python /common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py --exp-dir /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3A_struct_exp2_replay_seed4/v3A_struct_exp2_replay_seed4 --num-eval-trajs 100 --random
+SUCCESS: v3A_struct_exp2_replay_seed4
+No valid trajectories were evaluated.
+
+
+======================================================================
+Evaluating: v3B_struct_h10_tf0_seed4
+Directory: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3B_struct_h10_tf0_seed4/v3B_struct_h10_tf0_seed4
+======================================================================
+Running: /common/home/st1122/Projects/mushr_mujoco_sysid/env/bin/python /common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py --exp-dir /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3B_struct_h10_tf0_seed4/v3B_struct_h10_tf0_seed4 --num-eval-trajs 100 --random
+SUCCESS: v3B_struct_h10_tf0_seed4
+No valid trajectories were evaluated.
+
+
+======================================================================
+Evaluating: v3C_struct_h20_tf0_seed4
+Directory: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3C_struct_h20_tf0_seed4/v3C_struct_h20_tf0_seed4
+======================================================================
+Running: /common/home/st1122/Projects/mushr_mujoco_sysid/env/bin/python /common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py --exp-dir /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3C_struct_h20_tf0_seed4/v3C_struct_h20_tf0_seed4 --num-eval-trajs 100 --random
+SUCCESS: v3C_struct_h20_tf0_seed4
+No valid trajectories were evaluated.
+
+
+======================================================================
+Evaluating: v3D_struct_h20_tf0_seed2
+Directory: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3D_struct_h20_tf0_seed2/v3D_struct_h20_tf0_seed2
+======================================================================
+Running: /common/home/st1122/Projects/mushr_mujoco_sysid/env/bin/python /common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py --exp-dir /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3D_struct_h20_tf0_seed2/v3D_struct_h20_tf0_seed2 --num-eval-trajs 100 --random
+SUCCESS: v3D_struct_h20_tf0_seed2
+No valid trajectories were evaluated.
+
+
+======================================================================
+Evaluating: v3E_struct_h20_tf0_resl2_0p01_seed4
+Directory: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3E_struct_h20_tf0_resl2_0p01_seed4/v3E_struct_h20_tf0_resl2_0p01_seed4
+======================================================================
+Running: /common/home/st1122/Projects/mushr_mujoco_sysid/env/bin/python /common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py --exp-dir /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3E_struct_h20_tf0_resl2_0p01_seed4/v3E_struct_h20_tf0_resl2_0p01_seed4 --num-eval-trajs 100 --random
+SUCCESS: v3E_struct_h20_tf0_resl2_0p01_seed4
+No valid trajectories were evaluated.
+
+
+======================================================================
+Evaluating: v3F_struct_h20_tf0_pose_xytheta_seed4
+Directory: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3F_struct_h20_tf0_pose_xytheta_seed4/v3F_struct_h20_tf0_pose_xytheta_seed4
+======================================================================
+Running: /common/home/st1122/Projects/mushr_mujoco_sysid/env/bin/python /common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py --exp-dir /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3F_struct_h20_tf0_pose_xytheta_seed4/v3F_struct_h20_tf0_pose_xytheta_seed4 --num-eval-trajs 100 --random
+SUCCESS: v3F_struct_h20_tf0_pose_xytheta_seed4
+No valid trajectories were evaluated.
+
+
+======================================================================
+Evaluating: v3G_direct_no_adapter_h20_tf0_seed4
+Directory: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3G_direct_no_adapter_h20_tf0_seed4/v3G_direct_no_adapter_h20_tf0_seed4
+======================================================================
+Running: /common/home/st1122/Projects/mushr_mujoco_sysid/env/bin/python /common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py --exp-dir /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3G_direct_no_adapter_h20_tf0_seed4/v3G_direct_no_adapter_h20_tf0_seed4 --num-eval-trajs 100 --random
+SUCCESS: v3G_direct_no_adapter_h20_tf0_seed4
+No valid trajectories were evaluated.
+
+
+======================================================================
+Evaluating: v3H_direct_with_adapter_h20_tf0_seed4
+Directory: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3H_direct_with_adapter_h20_tf0_seed4/v3H_direct_with_adapter_h20_tf0_seed4
+======================================================================
+Running: /common/home/st1122/Projects/mushr_mujoco_sysid/env/bin/python /common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py --exp-dir /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/v3H_direct_with_adapter_h20_tf0_seed4/v3H_direct_with_adapter_h20_tf0_seed4 --num-eval-trajs 100 --random
+SUCCESS: v3H_direct_with_adapter_h20_tf0_seed4
+No valid trajectories were evaluated.
+
+
+======================================================================
+EVALUATION SUMMARY
+======================================================================
+Total experiments: 8
+Successful: 8
+Failed: 0
+======================================================================
+
+Details:
+  ✓ v3A_struct_exp2_replay_seed4: Success
+  ✓ v3B_struct_h10_tf0_seed4: Success
+  ✓ v3C_struct_h20_tf0_seed4: Success
+  ✓ v3D_struct_h20_tf0_seed2: Success
+  ✓ v3E_struct_h20_tf0_resl2_0p01_seed4: Success
+  ✓ v3F_struct_h20_tf0_pose_xytheta_seed4: Success
+  ✓ v3G_direct_no_adapter_h20_tf0_seed4: Success
+  ✓ v3H_direct_with_adapter_h20_tf0_seed4: Success
+
+Results saved to: /common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary/evaluation_results.json

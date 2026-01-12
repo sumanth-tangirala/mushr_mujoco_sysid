@@ -1,0 +1,145 @@
+{
+  "model_type": "polynomial_physics_based",
+  "data_dir": "data/sysid_trajs_v3",
+  "eval_run_name": "20260105_093321",
+  "eval_config": {
+    "num_eval_trajs_requested": 10,
+    "num_eval_trajs_evaluated": 10,
+    "random_select": true,
+    "seed": 42,
+    "selected_ids": [
+      "mj_traj_e1862.txt",
+      "traj_670.txt",
+      "mj_traj_e0581.txt",
+      "traj_054.txt",
+      "mj_traj_e1859.txt",
+      "mj_traj_e0700.txt",
+      "traj_441.txt",
+      "traj_757.txt",
+      "mj_traj_e0694.txt",
+      "mj_traj_e0809.txt"
+    ],
+    "evaluated_ids": [
+      "mj_traj_e1862.txt",
+      "traj_670.txt",
+      "mj_traj_e0581.txt",
+      "traj_054.txt",
+      "mj_traj_e1859.txt",
+      "mj_traj_e0700.txt",
+      "traj_441.txt",
+      "traj_757.txt",
+      "mj_traj_e0694.txt",
+      "mj_traj_e0809.txt"
+    ]
+  },
+  "metrics": {
+    "avg_traj_state_mse": 6.397592558190492,
+    "avg_traj_pos_mse": 3.510514925241799,
+    "avg_traj_vel_mse": 9.284670191139186,
+    "avg_final_state_mse": 19.410545338855314,
+    "avg_final_pos_mse": 9.586372402586253,
+    "avg_final_vel_mse": 29.23471827512437
+  },
+  "per_trajectory": [
+    {
+      "id": "mj_traj_e1862.txt",
+      "traj_len": 96,
+      "traj_state_mse": 9.989954637142784,
+      "traj_pos_mse": 0.6870956217573992,
+      "traj_vel_mse": 19.292813652528167,
+      "final_state_mse": 29.408382274346906,
+      "final_pos_mse": 0.2741661809915201,
+      "final_vel_mse": 58.54259836770229
+    },
+    {
+      "id": "traj_670.txt",
+      "traj_len": 99,
+      "traj_state_mse": 3.479300965877889,
+      "traj_pos_mse": 6.172002412687503,
+      "traj_vel_mse": 0.7865995190682752,
+      "final_state_mse": 6.653333868498345,
+      "final_pos_mse": 10.881488107408714,
+      "final_vel_mse": 2.4251796295879755
+    },
+    {
+      "id": "mj_traj_e0581.txt",
+      "traj_len": 98,
+      "traj_state_mse": 6.525595559849535,
+      "traj_pos_mse": 5.348682591758507,
+      "traj_vel_mse": 7.702508527940561,
+      "final_state_mse": 40.205063559022165,
+      "final_pos_mse": 21.51182598874899,
+      "final_vel_mse": 58.898301129295334
+    },
+    {
+      "id": "traj_054.txt",
+      "traj_len": 99,
+      "traj_state_mse": 9.663181661476553,
+      "traj_pos_mse": 12.735317208033505,
+      "traj_vel_mse": 6.591046114919603,
+      "final_state_mse": 25.58251308171708,
+      "final_pos_mse": 30.155661625780915,
+      "final_vel_mse": 21.00936453765325
+    },
+    {
+      "id": "mj_traj_e1859.txt",
+      "traj_len": 97,
+      "traj_state_mse": 8.699219530417622,
+      "traj_pos_mse": 1.3337648451422734,
+      "traj_vel_mse": 16.06467421569297,
+      "final_state_mse": 13.596997460309392,
+      "final_pos_mse": 8.045835652883055,
+      "final_vel_mse": 19.14815926773573
+    },
+    {
+      "id": "mj_traj_e0700.txt",
+      "traj_len": 97,
+      "traj_state_mse": 6.537157651704288,
+      "traj_pos_mse": 4.364544233505608,
+      "traj_vel_mse": 8.709771069902969,
+      "final_state_mse": 34.45398822461594,
+      "final_pos_mse": 14.516065222821197,
+      "final_vel_mse": 54.39191122641069
+    },
+    {
+      "id": "traj_441.txt",
+      "traj_len": 99,
+      "traj_state_mse": 0.8367769176702566,
+      "traj_pos_mse": 0.15961382110305572,
+      "traj_vel_mse": 1.5139400142374575,
+      "final_state_mse": 2.4606296558492544,
+      "final_pos_mse": 0.3517761187857166,
+      "final_vel_mse": 4.569483192912792
+    },
+    {
+      "id": "traj_757.txt",
+      "traj_len": 99,
+      "traj_state_mse": 0.6638594743734245,
+      "traj_pos_mse": 0.08377861062102912,
+      "traj_vel_mse": 1.2439403381258198,
+      "final_state_mse": 1.9880988762863319,
+      "final_pos_mse": 0.1994451906242597,
+      "final_vel_mse": 3.776752561948404
+    },
+    {
+      "id": "mj_traj_e0694.txt",
+      "traj_len": 92,
+      "traj_state_mse": 10.358273889078493,
+      "traj_pos_mse": 1.5951137143434355,
+      "traj_vel_mse": 19.121434063813552,
+      "final_state_mse": 26.21010925231263,
+      "final_pos_mse": 7.847635986058114,
+      "final_vel_mse": 44.572582518567145
+    },
+    {
+      "id": "mj_traj_e0809.txt",
+      "traj_len": 92,
+      "traj_state_mse": 7.222605294314083,
+      "traj_pos_mse": 2.625236193465671,
+      "traj_vel_mse": 11.819974395162495,
+      "final_state_mse": 13.546337135595074,
+      "final_pos_mse": 2.079823951760064,
+      "final_vel_mse": 25.012850319430086
+    }
+  ]
+}

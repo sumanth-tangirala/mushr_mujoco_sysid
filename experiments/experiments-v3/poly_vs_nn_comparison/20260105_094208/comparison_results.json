@@ -1,0 +1,2232 @@
+{
+  "nn_model": "experiments/v3_allstars_controls_vary/v3B_struct_h10_tf0_seed4/v3B_struct_h10_tf0_seed4",
+  "num_trajectories": 100,
+  "polynomial_stats": {
+    "avg_pos_error_mean": 1.5754080467913625,
+    "avg_pos_error_std": 1.0563917994290495,
+    "worst_pos_error_mean": 4.045038913813828,
+    "worst_pos_error_max": 16.06833063040388,
+    "avg_vel_error_mean": 4.633355329074682,
+    "avg_vel_error_std": 2.4500488308744885,
+    "worst_vel_error_mean": 12.686372842983712,
+    "worst_vel_error_max": 25.661358822012517
+  },
+  "neural_net_stats": {
+    "avg_pos_error_mean": 0.08116405661033067,
+    "avg_pos_error_std": 0.054484787953727284,
+    "worst_pos_error_mean": 0.15891100318741155,
+    "worst_pos_error_max": 0.602698352949643,
+    "avg_vel_error_mean": 0.06908557320195903,
+    "avg_vel_error_std": 0.03146798527349568,
+    "worst_vel_error_mean": 0.3296450901108933,
+    "worst_vel_error_max": 0.7524006704555595
+  },
+  "improvement_factors": {
+    "avg_pos_error": 19.410168892307958,
+    "worst_pos_error": 25.454744055975247,
+    "avg_vel_error": 67.066901443083,
+    "worst_vel_error": 38.48494403091515
+  },
+  "per_trajectory": [
+    {
+      "id": "mj_traj_e1862.txt",
+      "traj_len": 96,
+      "poly": {
+        "avg_pos_error": 0.9214686463699765,
+        "worst_pos_error": 2.3345869064036164,
+        "avg_vel_error": 5.692456231738777,
+        "worst_vel_error": 16.18849805870081,
+        "final_pos_error": 0.7404946738384013,
+        "final_vel_error": 13.252463737098354,
+        "id": "mj_traj_e1862.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06470657033384124,
+        "worst_pos_error": 0.18616509395894779,
+        "avg_vel_error": 0.10983071921354522,
+        "worst_vel_error": 0.7159467234614013,
+        "final_pos_error": 0.1694591241399137,
+        "final_vel_error": 0.03603250389583628,
+        "id": "mj_traj_e1862.txt"
+      }
+    },
+    {
+      "id": "traj_670.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 2.821570267781637,
+        "worst_pos_error": 5.634630783046085,
+        "avg_vel_error": 1.3076045024492948,
+        "worst_vel_error": 2.697320687045559,
+        "final_pos_error": 4.665080515362776,
+        "final_vel_error": 2.697320687045559,
+        "id": "traj_670.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.20043090658693433,
+        "worst_pos_error": 0.43516307008521204,
+        "avg_vel_error": 0.045776307683159746,
+        "worst_vel_error": 0.06717836456341496,
+        "final_pos_error": 0.43516307008521204,
+        "final_vel_error": 0.052906326266789074,
+        "id": "traj_670.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0581.txt",
+      "traj_len": 98,
+      "poly": {
+        "avg_pos_error": 2.3079515817805163,
+        "worst_pos_error": 7.556249647795216,
+        "avg_vel_error": 4.065577606003894,
+        "worst_vel_error": 13.292663517440213,
+        "final_pos_error": 6.55924172275256,
+        "final_vel_error": 13.292663517440213,
+        "id": "mj_traj_e0581.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.023322255530586117,
+        "worst_pos_error": 0.07859962544710214,
+        "avg_vel_error": 0.06910746205115326,
+        "worst_vel_error": 0.3995384744314533,
+        "final_pos_error": 0.07859962544710214,
+        "final_vel_error": 0.05279826012354845,
+        "id": "mj_traj_e0581.txt"
+      }
+    },
+    {
+      "id": "traj_054.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 4.150495082669084,
+        "worst_pos_error": 8.348054623351391,
+        "avg_vel_error": 3.7732401024035025,
+        "worst_vel_error": 7.939023467213065,
+        "final_pos_error": 7.766036521389906,
+        "final_vel_error": 7.939023467213065,
+        "id": "traj_054.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.28513365458510626,
+        "worst_pos_error": 0.3743729553845372,
+        "avg_vel_error": 0.060622604685033686,
+        "worst_vel_error": 0.22760707342982783,
+        "final_pos_error": 0.27805603279724433,
+        "final_vel_error": 0.025371324013981685,
+        "id": "traj_054.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1859.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 1.2759355634827938,
+        "worst_pos_error": 4.082309690537667,
+        "avg_vel_error": 5.29785372292242,
+        "worst_vel_error": 14.320199839984648,
+        "final_pos_error": 4.011442546736287,
+        "final_vel_error": 7.579213534609457,
+        "id": "mj_traj_e1859.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.12616464114774528,
+        "worst_pos_error": 0.2670217814724573,
+        "avg_vel_error": 0.10165490326977927,
+        "worst_vel_error": 0.553485816951302,
+        "final_pos_error": 0.2670217814724573,
+        "final_vel_error": 0.09601282135649687,
+        "id": "mj_traj_e1859.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0700.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 2.302536144272845,
+        "worst_pos_error": 5.585107596674236,
+        "avg_vel_error": 4.03304148538146,
+        "worst_vel_error": 12.7740257428593,
+        "final_pos_error": 5.388147218259946,
+        "final_vel_error": 12.7740257428593,
+        "id": "mj_traj_e0700.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03874416266403072,
+        "worst_pos_error": 0.09583473400229063,
+        "avg_vel_error": 0.07107986771119831,
+        "worst_vel_error": 0.42469313258505037,
+        "final_pos_error": 0.09583473400229063,
+        "final_vel_error": 0.06128743308766224,
+        "id": "mj_traj_e0700.txt"
+      }
+    },
+    {
+      "id": "traj_441.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.47854430733622566,
+        "worst_pos_error": 0.9163968852179187,
+        "avg_vel_error": 1.8270661871159655,
+        "worst_vel_error": 3.7024923468845117,
+        "final_pos_error": 0.838780208142415,
+        "final_vel_error": 3.7024923468845117,
+        "id": "traj_441.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.04849288922298371,
+        "worst_pos_error": 0.08878038357744862,
+        "avg_vel_error": 0.010656461118182648,
+        "worst_vel_error": 0.025223040902519787,
+        "final_pos_error": 0.08878038357744862,
+        "final_vel_error": 0.013387714535349527,
+        "id": "traj_441.txt"
+      }
+    },
+    {
+      "id": "traj_757.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.34499432464681473,
+        "worst_pos_error": 0.6452133559570719,
+        "avg_vel_error": 1.658737251523564,
+        "worst_vel_error": 3.3660448134041845,
+        "final_pos_error": 0.6315776921713744,
+        "final_vel_error": 3.3660448134041845,
+        "id": "traj_757.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.007501611301251974,
+        "worst_pos_error": 0.01493950907176731,
+        "avg_vel_error": 0.005450277121551063,
+        "worst_vel_error": 0.01581595970628881,
+        "final_pos_error": 0.01493950907176731,
+        "final_vel_error": 0.0074071877191504865,
+        "id": "traj_757.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0694.txt",
+      "traj_len": 92,
+      "poly": {
+        "avg_pos_error": 1.3452599985017841,
+        "worst_pos_error": 4.027278881064727,
+        "avg_vel_error": 6.101070750450686,
+        "worst_vel_error": 17.824500725334406,
+        "final_pos_error": 3.961725883010614,
+        "final_vel_error": 11.563639027386726,
+        "id": "mj_traj_e0694.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03991438034947293,
+        "worst_pos_error": 0.07150407806074244,
+        "avg_vel_error": 0.09180710868938215,
+        "worst_vel_error": 0.3738800790145739,
+        "final_pos_error": 0.06807716786658925,
+        "final_vel_error": 0.1900646544522911,
+        "id": "mj_traj_e0694.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0809.txt",
+      "traj_len": 92,
+      "poly": {
+        "avg_pos_error": 1.8847793731697517,
+        "worst_pos_error": 5.070828607245162,
+        "avg_vel_error": 4.878715006322502,
+        "worst_vel_error": 14.495380703652131,
+        "final_pos_error": 2.0395214888596116,
+        "final_vel_error": 8.66247949251773,
+        "id": "mj_traj_e0809.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.029780267089300826,
+        "worst_pos_error": 0.07586940610666071,
+        "avg_vel_error": 0.09096996937611147,
+        "worst_vel_error": 0.4712490593400193,
+        "final_pos_error": 0.07586940610666071,
+        "final_vel_error": 0.09834179578686984,
+        "id": "mj_traj_e0809.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1213.txt",
+      "traj_len": 96,
+      "poly": {
+        "avg_pos_error": 2.891331822721504,
+        "worst_pos_error": 7.404902186530921,
+        "avg_vel_error": 4.083466818747318,
+        "worst_vel_error": 14.709875937147999,
+        "final_pos_error": 6.395127163855683,
+        "final_vel_error": 6.527233566085055,
+        "id": "mj_traj_e1213.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03778088322025696,
+        "worst_pos_error": 0.07672669701035588,
+        "avg_vel_error": 0.08405429076213759,
+        "worst_vel_error": 0.29484672690667557,
+        "final_pos_error": 0.04320214998131855,
+        "final_vel_error": 0.006771384359727135,
+        "id": "mj_traj_e1213.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0765.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.1564307821307334,
+        "worst_pos_error": 3.6423902275968945,
+        "avg_vel_error": 4.764468121618957,
+        "worst_vel_error": 15.79838046237923,
+        "final_pos_error": 2.278906029236146,
+        "final_vel_error": 15.79838046237923,
+        "id": "mj_traj_e0765.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03655643906982312,
+        "worst_pos_error": 0.07541951985701194,
+        "avg_vel_error": 0.09872474392277769,
+        "worst_vel_error": 0.4450388860675588,
+        "final_pos_error": 0.060993341219943965,
+        "final_vel_error": 0.12123759441075682,
+        "id": "mj_traj_e0765.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0949.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 3.1660074605400688,
+        "worst_pos_error": 6.371879216794916,
+        "avg_vel_error": 5.985599573337789,
+        "worst_vel_error": 18.830656422192998,
+        "final_pos_error": 5.6238817519823305,
+        "final_vel_error": 18.830656422192998,
+        "id": "mj_traj_e0949.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.04855122275486765,
+        "worst_pos_error": 0.1093795376124002,
+        "avg_vel_error": 0.086154231343948,
+        "worst_vel_error": 0.4121320172165111,
+        "final_pos_error": 0.1093795376124002,
+        "final_vel_error": 0.013014733996256059,
+        "id": "mj_traj_e0949.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1188.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 0.9991861981594704,
+        "worst_pos_error": 2.21400229102558,
+        "avg_vel_error": 3.2109575839791327,
+        "worst_vel_error": 7.466085006313018,
+        "final_pos_error": 0.7351697925922572,
+        "final_vel_error": 3.697603442698764,
+        "id": "mj_traj_e1188.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.09557972196098465,
+        "worst_pos_error": 0.239928334333479,
+        "avg_vel_error": 0.06145128953772465,
+        "worst_vel_error": 0.2321359541018981,
+        "final_pos_error": 0.239928334333479,
+        "final_vel_error": 0.08098623327233767,
+        "id": "mj_traj_e1188.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1779.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 2.9330478583112547,
+        "worst_pos_error": 6.1079735605502785,
+        "avg_vel_error": 5.822219672157553,
+        "worst_vel_error": 15.693223745607181,
+        "final_pos_error": 5.877070788657123,
+        "final_vel_error": 12.217175081116098,
+        "id": "mj_traj_e1779.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.053061489306306824,
+        "worst_pos_error": 0.08928128637659202,
+        "avg_vel_error": 0.086970944541146,
+        "worst_vel_error": 0.5087352567811351,
+        "final_pos_error": 0.0350701835885887,
+        "final_vel_error": 0.07219046761417389,
+        "id": "mj_traj_e1779.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1610.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 1.4415479496999475,
+        "worst_pos_error": 4.949097161966286,
+        "avg_vel_error": 6.535483836906682,
+        "worst_vel_error": 13.969564362038371,
+        "final_pos_error": 3.996395473226552,
+        "final_vel_error": 10.503052014205608,
+        "id": "mj_traj_e1610.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.05962624361928221,
+        "worst_pos_error": 0.13425627737648685,
+        "avg_vel_error": 0.08118864652764908,
+        "worst_vel_error": 0.3190131632083145,
+        "final_pos_error": 0.021219870231409702,
+        "final_vel_error": 0.006641589404872985,
+        "id": "mj_traj_e1610.txt"
+      }
+    },
+    {
+      "id": "traj_295.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.8170789643395482,
+        "worst_pos_error": 1.5513655730257396,
+        "avg_vel_error": 9.751756106515522,
+        "worst_vel_error": 20.35757760678745,
+        "final_pos_error": 0.38570222992075176,
+        "final_vel_error": 20.35757760678745,
+        "id": "traj_295.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.16643063358294427,
+        "worst_pos_error": 0.3875432051355164,
+        "avg_vel_error": 0.0899111053100948,
+        "worst_vel_error": 0.30197671683070304,
+        "final_pos_error": 0.3875432051355164,
+        "final_vel_error": 0.21851955983841698,
+        "id": "traj_295.txt"
+      }
+    },
+    {
+      "id": "traj_376.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.6451403093604956,
+        "worst_pos_error": 1.360473560668713,
+        "avg_vel_error": 0.8719513026206551,
+        "worst_vel_error": 1.7857191765880058,
+        "final_pos_error": 0.5495166281745996,
+        "final_vel_error": 1.7857191765880058,
+        "id": "traj_376.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.051716417737695454,
+        "worst_pos_error": 0.0985945425757235,
+        "avg_vel_error": 0.010390090927603263,
+        "worst_vel_error": 0.018999767182163715,
+        "final_pos_error": 0.0985945425757235,
+        "final_vel_error": 0.008734694025362005,
+        "id": "traj_376.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0098.txt",
+      "traj_len": 98,
+      "poly": {
+        "avg_pos_error": 2.46470645236668,
+        "worst_pos_error": 6.3641561850799375,
+        "avg_vel_error": 4.779063842355141,
+        "worst_vel_error": 13.590724327610658,
+        "final_pos_error": 4.454515171910688,
+        "final_vel_error": 13.567855351213257,
+        "id": "mj_traj_e0098.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.11075600420912045,
+        "worst_pos_error": 0.2254515717938142,
+        "avg_vel_error": 0.08414119701160577,
+        "worst_vel_error": 0.24770809216944634,
+        "final_pos_error": 0.11875145628465544,
+        "final_vel_error": 0.09107686566450547,
+        "id": "mj_traj_e0098.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1570.txt",
+      "traj_len": 98,
+      "poly": {
+        "avg_pos_error": 2.933472940802768,
+        "worst_pos_error": 7.291926480826887,
+        "avg_vel_error": 6.017811014574824,
+        "worst_vel_error": 23.507107140206273,
+        "final_pos_error": 6.291579132180382,
+        "final_vel_error": 23.507107140206273,
+        "id": "mj_traj_e1570.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06205878893755138,
+        "worst_pos_error": 0.22326533832852777,
+        "avg_vel_error": 0.12475676919572738,
+        "worst_vel_error": 0.6067352403638135,
+        "final_pos_error": 0.22326533832852777,
+        "final_vel_error": 0.21219496003798138,
+        "id": "mj_traj_e1570.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0093.txt",
+      "traj_len": 91,
+      "poly": {
+        "avg_pos_error": 2.0912612718238797,
+        "worst_pos_error": 4.753739138093167,
+        "avg_vel_error": 4.441953889529125,
+        "worst_vel_error": 12.110040255519412,
+        "final_pos_error": 4.753739138093167,
+        "final_vel_error": 11.35395786184238,
+        "id": "mj_traj_e0093.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.0641523532197915,
+        "worst_pos_error": 0.10936872933379767,
+        "avg_vel_error": 0.10460332778220874,
+        "worst_vel_error": 0.5646151675728321,
+        "final_pos_error": 0.024087618695992956,
+        "final_vel_error": 0.16163219912364377,
+        "id": "mj_traj_e0093.txt"
+      }
+    },
+    {
+      "id": "traj_878.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.8094111269696582,
+        "worst_pos_error": 1.5190372904841833,
+        "avg_vel_error": 9.78045126464919,
+        "worst_vel_error": 20.166964862811017,
+        "final_pos_error": 0.6247016021257478,
+        "final_vel_error": 20.166964862811017,
+        "id": "traj_878.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.12726509519479323,
+        "worst_pos_error": 0.16883229599829339,
+        "avg_vel_error": 0.0667469587511936,
+        "worst_vel_error": 0.20644888945789042,
+        "final_pos_error": 0.1353005592557514,
+        "final_vel_error": 0.016803515985623185,
+        "id": "traj_878.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0025.txt",
+      "traj_len": 96,
+      "poly": {
+        "avg_pos_error": 1.1620416646996234,
+        "worst_pos_error": 2.6795318229021703,
+        "avg_vel_error": 5.591321111443715,
+        "worst_vel_error": 16.403068452519975,
+        "final_pos_error": 0.3782309526318139,
+        "final_vel_error": 10.351020991147605,
+        "id": "mj_traj_e0025.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03564017264470056,
+        "worst_pos_error": 0.0788284098828942,
+        "avg_vel_error": 0.0869282389387372,
+        "worst_vel_error": 0.4298254497347012,
+        "final_pos_error": 0.059751893470131434,
+        "final_vel_error": 0.11863131336677685,
+        "id": "mj_traj_e0025.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0198.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.5742297485678687,
+        "worst_pos_error": 4.470913770750389,
+        "avg_vel_error": 3.7463263495246175,
+        "worst_vel_error": 12.594861845015,
+        "final_pos_error": 2.7252209126153515,
+        "final_vel_error": 12.594861845015,
+        "id": "mj_traj_e0198.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.08494523782341051,
+        "worst_pos_error": 0.14968071228537946,
+        "avg_vel_error": 0.08307098412605597,
+        "worst_vel_error": 0.2347981226713935,
+        "final_pos_error": 0.05637653033062268,
+        "final_vel_error": 0.19359863474155511,
+        "id": "mj_traj_e0198.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0111.txt",
+      "traj_len": 92,
+      "poly": {
+        "avg_pos_error": 0.8825342245564625,
+        "worst_pos_error": 2.139744090704621,
+        "avg_vel_error": 4.315123893625501,
+        "worst_vel_error": 10.21245725281803,
+        "final_pos_error": 1.0453819557056376,
+        "final_vel_error": 4.465220863386215,
+        "id": "mj_traj_e0111.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.08172556222403378,
+        "worst_pos_error": 0.1707460217778927,
+        "avg_vel_error": 0.06587861931292961,
+        "worst_vel_error": 0.31359601049005004,
+        "final_pos_error": 0.1707460217778927,
+        "final_vel_error": 0.03664248239265326,
+        "id": "mj_traj_e0111.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1813.txt",
+      "traj_len": 96,
+      "poly": {
+        "avg_pos_error": 2.0057991471867265,
+        "worst_pos_error": 4.380032707761243,
+        "avg_vel_error": 4.373883749482798,
+        "worst_vel_error": 12.27734356596467,
+        "final_pos_error": 4.380032707761243,
+        "final_vel_error": 7.42945220843269,
+        "id": "mj_traj_e1813.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.18088999772449685,
+        "worst_pos_error": 0.26794176349004534,
+        "avg_vel_error": 0.07831959134390637,
+        "worst_vel_error": 0.22624201645002487,
+        "final_pos_error": 0.26794176349004534,
+        "final_vel_error": 0.08387841613765766,
+        "id": "mj_traj_e1813.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1560.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 2.0049584595460943,
+        "worst_pos_error": 5.137288650590203,
+        "avg_vel_error": 5.079623263875454,
+        "worst_vel_error": 17.417398011659735,
+        "final_pos_error": 4.826864093818721,
+        "final_vel_error": 7.889916218380789,
+        "id": "mj_traj_e1560.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.08294002368764362,
+        "worst_pos_error": 0.1573719248119582,
+        "avg_vel_error": 0.08075140741898225,
+        "worst_vel_error": 0.3968491744691317,
+        "final_pos_error": 0.14488774333001117,
+        "final_vel_error": 0.042045001393474266,
+        "id": "mj_traj_e1560.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1968.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 0.999617896333186,
+        "worst_pos_error": 2.8950645489315985,
+        "avg_vel_error": 4.1289094462854035,
+        "worst_vel_error": 12.098194296582026,
+        "final_pos_error": 2.0713125752344625,
+        "final_vel_error": 6.292341667377607,
+        "id": "mj_traj_e1968.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.05385799725584428,
+        "worst_pos_error": 0.08205766976064986,
+        "avg_vel_error": 0.048601695394863594,
+        "worst_vel_error": 0.2587027552651146,
+        "final_pos_error": 0.039970113042501906,
+        "final_vel_error": 0.06454868298977709,
+        "id": "mj_traj_e1968.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0682.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.3200374070502938,
+        "worst_pos_error": 3.1978083025608854,
+        "avg_vel_error": 5.985089000548207,
+        "worst_vel_error": 17.795139850590726,
+        "final_pos_error": 1.0596784869817772,
+        "final_vel_error": 17.572964840066206,
+        "id": "mj_traj_e0682.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.08732631371892179,
+        "worst_pos_error": 0.1850538447570474,
+        "avg_vel_error": 0.10574612865433679,
+        "worst_vel_error": 0.456941260993939,
+        "final_pos_error": 0.1850538447570474,
+        "final_vel_error": 0.05017766487028257,
+        "id": "mj_traj_e0682.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0369.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 1.2378729252388017,
+        "worst_pos_error": 4.328235174156731,
+        "avg_vel_error": 3.52498181867565,
+        "worst_vel_error": 17.893848946991525,
+        "final_pos_error": 3.4294650673373317,
+        "final_vel_error": 17.893848946991525,
+        "id": "mj_traj_e0369.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.023424180251014753,
+        "worst_pos_error": 0.04957114407349565,
+        "avg_vel_error": 0.07008666826072572,
+        "worst_vel_error": 0.3935239341476869,
+        "final_pos_error": 0.04957114407349565,
+        "final_vel_error": 0.010246025472325029,
+        "id": "mj_traj_e0369.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0269.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 0.5860278026745219,
+        "worst_pos_error": 1.454887945643263,
+        "avg_vel_error": 3.6385622722429383,
+        "worst_vel_error": 11.732060377145027,
+        "final_pos_error": 1.1752819748192977,
+        "final_vel_error": 11.732060377145027,
+        "id": "mj_traj_e0269.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03724617135338134,
+        "worst_pos_error": 0.10318984808382481,
+        "avg_vel_error": 0.06914798979919036,
+        "worst_vel_error": 0.4918241696020078,
+        "final_pos_error": 0.0892637146318895,
+        "final_vel_error": 0.03948265512235625,
+        "id": "mj_traj_e0269.txt"
+      }
+    },
+    {
+      "id": "traj_133.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 1.1517178336958127,
+        "worst_pos_error": 2.035484534775714,
+        "avg_vel_error": 4.987927778126019,
+        "worst_vel_error": 10.481370143912521,
+        "final_pos_error": 1.979288284388509,
+        "final_vel_error": 10.481370143912521,
+        "id": "traj_133.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03617003891573505,
+        "worst_pos_error": 0.0710724355407801,
+        "avg_vel_error": 0.035851618011956986,
+        "worst_vel_error": 0.22230017286107445,
+        "final_pos_error": 0.029406397149784484,
+        "final_vel_error": 0.024592766699721574,
+        "id": "traj_133.txt"
+      }
+    },
+    {
+      "id": "traj_863.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.3057963346344917,
+        "worst_pos_error": 0.5730992501640503,
+        "avg_vel_error": 2.537097285873853,
+        "worst_vel_error": 5.129227951337668,
+        "final_pos_error": 0.4334996166985556,
+        "final_vel_error": 5.129227951337668,
+        "id": "traj_863.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.0038186785212404443,
+        "worst_pos_error": 0.005835928211691381,
+        "avg_vel_error": 0.005996285581010164,
+        "worst_vel_error": 0.020089624167854113,
+        "final_pos_error": 0.004403129758739781,
+        "final_vel_error": 0.0022147321976701785,
+        "id": "traj_863.txt"
+      }
+    },
+    {
+      "id": "traj_990.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 6.115931524246831,
+        "worst_pos_error": 12.448180467751648,
+        "avg_vel_error": 3.888860189907903,
+        "worst_vel_error": 8.132920776586346,
+        "final_pos_error": 1.104067906246988,
+        "final_vel_error": 8.132920776586346,
+        "id": "traj_990.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06793777765488267,
+        "worst_pos_error": 0.11829481753543737,
+        "avg_vel_error": 0.04025923484445985,
+        "worst_vel_error": 0.1261528888569658,
+        "final_pos_error": 0.11699612263473555,
+        "final_vel_error": 0.056039745325695896,
+        "id": "traj_990.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0068.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 1.0835839905157556,
+        "worst_pos_error": 3.202882372176747,
+        "avg_vel_error": 4.469980988773397,
+        "worst_vel_error": 12.100923478868022,
+        "final_pos_error": 2.9641799430923035,
+        "final_vel_error": 12.100923478868022,
+        "id": "mj_traj_e0068.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.02918760186238864,
+        "worst_pos_error": 0.05377604257160039,
+        "avg_vel_error": 0.07331084663789882,
+        "worst_vel_error": 0.3219783344557671,
+        "final_pos_error": 0.03824372729049218,
+        "final_vel_error": 0.017182017386150068,
+        "id": "mj_traj_e0068.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1708.txt",
+      "traj_len": 93,
+      "poly": {
+        "avg_pos_error": 1.2291480838057531,
+        "worst_pos_error": 3.1440003584032388,
+        "avg_vel_error": 4.260198012571084,
+        "worst_vel_error": 12.043657495133921,
+        "final_pos_error": 1.7203210404987215,
+        "final_vel_error": 4.905906463418067,
+        "id": "mj_traj_e1708.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.09306237199562374,
+        "worst_pos_error": 0.19056912665428022,
+        "avg_vel_error": 0.06594018435636168,
+        "worst_vel_error": 0.30889626183988644,
+        "final_pos_error": 0.19056912665428022,
+        "final_vel_error": 0.07299137383112449,
+        "id": "mj_traj_e1708.txt"
+      }
+    },
+    {
+      "id": "traj_963.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 1.5385799549762977,
+        "worst_pos_error": 2.724267066909215,
+        "avg_vel_error": 5.139934139845075,
+        "worst_vel_error": 10.810227863585933,
+        "final_pos_error": 1.5767543869591776,
+        "final_vel_error": 10.810227863585933,
+        "id": "traj_963.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.10813757811668219,
+        "worst_pos_error": 0.22318497627750822,
+        "avg_vel_error": 0.04089200136719135,
+        "worst_vel_error": 0.1321541279704119,
+        "final_pos_error": 0.22318497627750822,
+        "final_vel_error": 0.04821457338405511,
+        "id": "traj_963.txt"
+      }
+    },
+    {
+      "id": "traj_397.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.6306060535339868,
+        "worst_pos_error": 1.2572139982899153,
+        "avg_vel_error": 0.7274612319409204,
+        "worst_vel_error": 1.4841526302392802,
+        "final_pos_error": 0.15126113423711252,
+        "final_vel_error": 1.4841526302392802,
+        "id": "traj_397.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.09761779009013126,
+        "worst_pos_error": 0.2091734234073227,
+        "avg_vel_error": 0.0221538413120918,
+        "worst_vel_error": 0.026664991933812564,
+        "final_pos_error": 0.2091734234073227,
+        "final_vel_error": 0.025117556948686916,
+        "id": "traj_397.txt"
+      }
+    },
+    {
+      "id": "traj_560.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 2.024942015274013,
+        "worst_pos_error": 3.675100264460488,
+        "avg_vel_error": 3.5333271648858737,
+        "worst_vel_error": 7.47605608638649,
+        "final_pos_error": 3.170417825266886,
+        "final_vel_error": 7.47605608638649,
+        "id": "traj_560.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.05183943639985515,
+        "worst_pos_error": 0.1576995517265818,
+        "avg_vel_error": 0.035992917592561256,
+        "worst_vel_error": 0.18319946253973288,
+        "final_pos_error": 0.1576995517265818,
+        "final_vel_error": 0.07183784017640066,
+        "id": "traj_560.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0485.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 1.2118476745951599,
+        "worst_pos_error": 3.9032940361165958,
+        "avg_vel_error": 6.219753112352665,
+        "worst_vel_error": 13.931521613405895,
+        "final_pos_error": 3.9032940361165958,
+        "final_vel_error": 9.828670921980896,
+        "id": "mj_traj_e0485.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03177017167255862,
+        "worst_pos_error": 0.100662690627646,
+        "avg_vel_error": 0.08617925734026269,
+        "worst_vel_error": 0.49092055607839685,
+        "final_pos_error": 0.100662690627646,
+        "final_vel_error": 0.03889110043491078,
+        "id": "mj_traj_e0485.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1146.txt",
+      "traj_len": 92,
+      "poly": {
+        "avg_pos_error": 0.8700261049075115,
+        "worst_pos_error": 2.928463609273518,
+        "avg_vel_error": 5.542443540823409,
+        "worst_vel_error": 14.810345314736232,
+        "final_pos_error": 2.828916546247027,
+        "final_vel_error": 9.981612651494663,
+        "id": "mj_traj_e1146.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.050031427998810184,
+        "worst_pos_error": 0.11487775092719887,
+        "avg_vel_error": 0.10306687691586053,
+        "worst_vel_error": 0.6107013554636467,
+        "final_pos_error": 0.1124170479975658,
+        "final_vel_error": 0.03622339190629713,
+        "id": "mj_traj_e1146.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0082.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.9194305592950516,
+        "worst_pos_error": 5.951600185829415,
+        "avg_vel_error": 4.826016672861033,
+        "worst_vel_error": 13.342768010393025,
+        "final_pos_error": 5.951600185829415,
+        "final_vel_error": 5.350610412826774,
+        "id": "mj_traj_e0082.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.11022398137056888,
+        "worst_pos_error": 0.15897489594517908,
+        "avg_vel_error": 0.08259247540146072,
+        "worst_vel_error": 0.4897051284248399,
+        "final_pos_error": 0.1141073140325055,
+        "final_vel_error": 0.013939408846790517,
+        "id": "mj_traj_e0082.txt"
+      }
+    },
+    {
+      "id": "traj_937.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 2.4480669379084046,
+        "worst_pos_error": 7.461437134057909,
+        "avg_vel_error": 0.7537809618289927,
+        "worst_vel_error": 1.5513061480059873,
+        "final_pos_error": 7.461437134057909,
+        "final_vel_error": 1.5513061480059873,
+        "id": "traj_937.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.10119452746298835,
+        "worst_pos_error": 0.21137410644759244,
+        "avg_vel_error": 0.02225493701017328,
+        "worst_vel_error": 0.028644105274080373,
+        "final_pos_error": 0.21137410644759244,
+        "final_vel_error": 0.023371997697994383,
+        "id": "traj_937.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0652.txt",
+      "traj_len": 96,
+      "poly": {
+        "avg_pos_error": 1.269324918335627,
+        "worst_pos_error": 4.936205501553072,
+        "avg_vel_error": 5.776906417577178,
+        "worst_vel_error": 16.663401375432265,
+        "final_pos_error": 4.936205501553072,
+        "final_vel_error": 9.146133995194656,
+        "id": "mj_traj_e0652.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06632859027915022,
+        "worst_pos_error": 0.16143924952625235,
+        "avg_vel_error": 0.10490178044879402,
+        "worst_vel_error": 0.7067922552711554,
+        "final_pos_error": 0.16143924952625235,
+        "final_vel_error": 0.038115616958489765,
+        "id": "mj_traj_e0652.txt"
+      }
+    },
+    {
+      "id": "traj_154.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 1.290629659836775,
+        "worst_pos_error": 2.2937665907871714,
+        "avg_vel_error": 4.774179210381212,
+        "worst_vel_error": 10.019603265702237,
+        "final_pos_error": 0.3463116773573173,
+        "final_vel_error": 10.019603265702237,
+        "id": "traj_154.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.13942675485853678,
+        "worst_pos_error": 0.3347267881102434,
+        "avg_vel_error": 0.06055228443212125,
+        "worst_vel_error": 0.6428283697591671,
+        "final_pos_error": 0.3347267881102434,
+        "final_vel_error": 0.05302457623285764,
+        "id": "traj_154.txt"
+      }
+    },
+    {
+      "id": "traj_523.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.8256769352529182,
+        "worst_pos_error": 1.3936004795788115,
+        "avg_vel_error": 12.547435311236152,
+        "worst_vel_error": 25.661358822012517,
+        "final_pos_error": 0.6285395655149121,
+        "final_vel_error": 25.661358822012517,
+        "id": "traj_523.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.08478920984272749,
+        "worst_pos_error": 0.1564476864686317,
+        "avg_vel_error": 0.06225407464003285,
+        "worst_vel_error": 0.17184041047517012,
+        "final_pos_error": 0.1564476864686317,
+        "final_vel_error": 0.09784167161605908,
+        "id": "traj_523.txt"
+      }
+    },
+    {
+      "id": "traj_926.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.7665056020839804,
+        "worst_pos_error": 1.3776225920196783,
+        "avg_vel_error": 11.413760863113447,
+        "worst_vel_error": 23.157851402453243,
+        "final_pos_error": 1.3776225920196783,
+        "final_vel_error": 23.157851402453243,
+        "id": "traj_926.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.2547371652838682,
+        "worst_pos_error": 0.602698352949643,
+        "avg_vel_error": 0.15333686991058484,
+        "worst_vel_error": 0.6920477896971972,
+        "final_pos_error": 0.602698352949643,
+        "final_vel_error": 0.20373432763092164,
+        "id": "traj_926.txt"
+      }
+    },
+    {
+      "id": "traj_943.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.9878133744577429,
+        "worst_pos_error": 2.052498506171199,
+        "avg_vel_error": 0.9532889126315202,
+        "worst_vel_error": 1.9605379255857687,
+        "final_pos_error": 0.31701747522492313,
+        "final_vel_error": 1.9605379255857687,
+        "id": "traj_943.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06589126892192292,
+        "worst_pos_error": 0.13101006886455627,
+        "avg_vel_error": 0.014155240490708721,
+        "worst_vel_error": 0.021634799285717383,
+        "final_pos_error": 0.13101006886455627,
+        "final_vel_error": 0.01339793314461418,
+        "id": "traj_943.txt"
+      }
+    },
+    {
+      "id": "traj_517.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 4.282751796531242,
+        "worst_pos_error": 8.594320837054976,
+        "avg_vel_error": 2.6254229391642014,
+        "worst_vel_error": 5.498931657006236,
+        "final_pos_error": 1.6788579264303147,
+        "final_vel_error": 5.498931657006236,
+        "id": "traj_517.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.062375801977448075,
+        "worst_pos_error": 0.12299449410179482,
+        "avg_vel_error": 0.02273483758980629,
+        "worst_vel_error": 0.05573208379658326,
+        "final_pos_error": 0.12146605458327174,
+        "final_vel_error": 0.003008075989670791,
+        "id": "traj_517.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1797.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 1.3114710445571478,
+        "worst_pos_error": 3.9685541184735107,
+        "avg_vel_error": 3.172463867677649,
+        "worst_vel_error": 12.246349356442385,
+        "final_pos_error": 1.4819067897257403,
+        "final_vel_error": 4.399004624001018,
+        "id": "mj_traj_e1797.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.0774357576138402,
+        "worst_pos_error": 0.18338457892993643,
+        "avg_vel_error": 0.07553019291177049,
+        "worst_vel_error": 0.24670317373484035,
+        "final_pos_error": 0.18338457892993643,
+        "final_vel_error": 0.021563474584294206,
+        "id": "mj_traj_e1797.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1613.txt",
+      "traj_len": 91,
+      "poly": {
+        "avg_pos_error": 1.2621539664808483,
+        "worst_pos_error": 2.6986264752905504,
+        "avg_vel_error": 6.22659963652105,
+        "worst_vel_error": 16.321306805814192,
+        "final_pos_error": 1.468858142490536,
+        "final_vel_error": 12.909841572436475,
+        "id": "mj_traj_e1613.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.0664227160330889,
+        "worst_pos_error": 0.1365643595795737,
+        "avg_vel_error": 0.08527357103424883,
+        "worst_vel_error": 0.6729742879267181,
+        "final_pos_error": 0.12654205492337967,
+        "final_vel_error": 0.13314433505535433,
+        "id": "mj_traj_e1613.txt"
+      }
+    },
+    {
+      "id": "traj_601.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.8066112729064857,
+        "worst_pos_error": 1.4926898028996907,
+        "avg_vel_error": 9.12775911724978,
+        "worst_vel_error": 18.83171370519936,
+        "final_pos_error": 0.5080271604607085,
+        "final_vel_error": 18.83171370519936,
+        "id": "traj_601.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.13501040842223466,
+        "worst_pos_error": 0.22352665381113776,
+        "avg_vel_error": 0.05716563294740259,
+        "worst_vel_error": 0.16130068696938038,
+        "final_pos_error": 0.14239811906760746,
+        "final_vel_error": 0.03041833352252193,
+        "id": "traj_601.txt"
+      }
+    },
+    {
+      "id": "traj_790.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 4.621308528188648,
+        "worst_pos_error": 9.164077216120845,
+        "avg_vel_error": 2.6886309112099664,
+        "worst_vel_error": 5.669047452867283,
+        "final_pos_error": 2.765200919067772,
+        "final_vel_error": 5.669047452867283,
+        "id": "traj_790.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.10204147229834884,
+        "worst_pos_error": 0.2003200953683811,
+        "avg_vel_error": 0.02839959690628011,
+        "worst_vel_error": 0.06742911405310013,
+        "final_pos_error": 0.2003200953683811,
+        "final_vel_error": 0.04636843237183254,
+        "id": "traj_790.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0851.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 1.570507389115435,
+        "worst_pos_error": 4.18807275328101,
+        "avg_vel_error": 4.803820490026128,
+        "worst_vel_error": 15.008857675678401,
+        "final_pos_error": 1.8830150395368732,
+        "final_vel_error": 13.969952228057144,
+        "id": "mj_traj_e0851.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.08636877991908357,
+        "worst_pos_error": 0.14276182294478157,
+        "avg_vel_error": 0.07403618415120777,
+        "worst_vel_error": 0.31036882159945167,
+        "final_pos_error": 0.11479970673692387,
+        "final_vel_error": 0.05379985120814912,
+        "id": "mj_traj_e0851.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0197.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 1.0972678403212386,
+        "worst_pos_error": 3.52221174946748,
+        "avg_vel_error": 3.3197230917843785,
+        "worst_vel_error": 12.405924156757873,
+        "final_pos_error": 2.9319570006021145,
+        "final_vel_error": 4.226100468519656,
+        "id": "mj_traj_e0197.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.04369140776664048,
+        "worst_pos_error": 0.09202935507733978,
+        "avg_vel_error": 0.06818278839273102,
+        "worst_vel_error": 0.37505729956520856,
+        "final_pos_error": 0.09202935507733978,
+        "final_vel_error": 0.0018239715519439224,
+        "id": "mj_traj_e0197.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0680.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 1.1027763169704354,
+        "worst_pos_error": 4.254648705015977,
+        "avg_vel_error": 5.64883520816682,
+        "worst_vel_error": 12.125176739918196,
+        "final_pos_error": 4.254648705015977,
+        "final_vel_error": 8.396748523075704,
+        "id": "mj_traj_e0680.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.021213660307815522,
+        "worst_pos_error": 0.058920500064079215,
+        "avg_vel_error": 0.0952174115413506,
+        "worst_vel_error": 0.42157786307663986,
+        "final_pos_error": 0.01548078769736269,
+        "final_vel_error": 0.04780712077840501,
+        "id": "mj_traj_e0680.txt"
+      }
+    },
+    {
+      "id": "traj_728.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.7384904478450777,
+        "worst_pos_error": 1.4300879334682213,
+        "avg_vel_error": 12.012305197835216,
+        "worst_vel_error": 24.68057557366558,
+        "final_pos_error": 0.8653687567230423,
+        "final_vel_error": 24.68057557366558,
+        "id": "traj_728.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.09570461816339292,
+        "worst_pos_error": 0.16482887368963065,
+        "avg_vel_error": 0.07647842066978422,
+        "worst_vel_error": 0.32166581053369836,
+        "final_pos_error": 0.14567574536506647,
+        "final_vel_error": 0.0846227131213844,
+        "id": "traj_728.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1238.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 2.652109207080017,
+        "worst_pos_error": 6.4717204472328245,
+        "avg_vel_error": 4.3310934845719045,
+        "worst_vel_error": 13.551081783674022,
+        "final_pos_error": 6.4717204472328245,
+        "final_vel_error": 7.219367793418457,
+        "id": "mj_traj_e1238.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.16784009208543535,
+        "worst_pos_error": 0.28268331293961285,
+        "avg_vel_error": 0.08433106691236127,
+        "worst_vel_error": 0.4300056023282415,
+        "final_pos_error": 0.28268331293961285,
+        "final_vel_error": 0.02184494510479462,
+        "id": "mj_traj_e1238.txt"
+      }
+    },
+    {
+      "id": "traj_686.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.7948970041344998,
+        "worst_pos_error": 1.4879104677046946,
+        "avg_vel_error": 10.570081034133903,
+        "worst_vel_error": 21.801431503185032,
+        "final_pos_error": 0.8143584661229086,
+        "final_vel_error": 21.801431503185032,
+        "id": "traj_686.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.22254356919706772,
+        "worst_pos_error": 0.36516460115818694,
+        "avg_vel_error": 0.08016610202636773,
+        "worst_vel_error": 0.2690708578234676,
+        "final_pos_error": 0.11082180455551556,
+        "final_vel_error": 0.05359045032579115,
+        "id": "traj_686.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1150.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.7400923658848764,
+        "worst_pos_error": 5.54435971383602,
+        "avg_vel_error": 5.360016623785819,
+        "worst_vel_error": 15.25649441453484,
+        "final_pos_error": 3.6669372897434274,
+        "final_vel_error": 15.25649441453484,
+        "id": "mj_traj_e1150.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.15271940986127788,
+        "worst_pos_error": 0.27693084338484636,
+        "avg_vel_error": 0.11551147429809605,
+        "worst_vel_error": 0.46203628539367864,
+        "final_pos_error": 0.26927985674009475,
+        "final_vel_error": 0.06458442516016911,
+        "id": "mj_traj_e1150.txt"
+      }
+    },
+    {
+      "id": "traj_624.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 1.0881887770381993,
+        "worst_pos_error": 2.002050035676393,
+        "avg_vel_error": 1.6237843262419434,
+        "worst_vel_error": 3.3487637526255734,
+        "final_pos_error": 1.1218972441161128,
+        "final_vel_error": 3.3487637526255734,
+        "id": "traj_624.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.014503783309553549,
+        "worst_pos_error": 0.02741571592204609,
+        "avg_vel_error": 0.00602131670974724,
+        "worst_vel_error": 0.02264654530027647,
+        "final_pos_error": 0.02741571592204609,
+        "final_vel_error": 0.0038300130921482276,
+        "id": "traj_624.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0475.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 2.4890054183208434,
+        "worst_pos_error": 5.2071284809250376,
+        "avg_vel_error": 7.643107678987015,
+        "worst_vel_error": 19.60550019595188,
+        "final_pos_error": 5.043665173466923,
+        "final_vel_error": 15.160378009025605,
+        "id": "mj_traj_e0475.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06581138665773377,
+        "worst_pos_error": 0.13188795219650226,
+        "avg_vel_error": 0.09109149890394531,
+        "worst_vel_error": 0.3731272883223198,
+        "final_pos_error": 0.13025122910260728,
+        "final_vel_error": 0.004052910425176571,
+        "id": "mj_traj_e0475.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0696.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.6956965169181992,
+        "worst_pos_error": 5.23817758020134,
+        "avg_vel_error": 6.051817694821914,
+        "worst_vel_error": 16.636079996359523,
+        "final_pos_error": 4.824513985884428,
+        "final_vel_error": 15.818535790294169,
+        "id": "mj_traj_e0696.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.08386023277694406,
+        "worst_pos_error": 0.1509443293152416,
+        "avg_vel_error": 0.08409694563083694,
+        "worst_vel_error": 0.42739138766067325,
+        "final_pos_error": 0.1509443293152416,
+        "final_vel_error": 0.04574916712358219,
+        "id": "mj_traj_e0696.txt"
+      }
+    },
+    {
+      "id": "traj_824.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.9077167364124052,
+        "worst_pos_error": 1.652994120383383,
+        "avg_vel_error": 7.074018148973975,
+        "worst_vel_error": 14.728926648845457,
+        "final_pos_error": 0.7504650017418706,
+        "final_vel_error": 14.728926648845457,
+        "id": "traj_824.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.21553933379515156,
+        "worst_pos_error": 0.36403436772199044,
+        "avg_vel_error": 0.10458954931559172,
+        "worst_vel_error": 0.34553563591216946,
+        "final_pos_error": 0.11789658587423725,
+        "final_vel_error": 0.04601677627348175,
+        "id": "traj_824.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0113.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 1.5162881365545953,
+        "worst_pos_error": 4.94691950931344,
+        "avg_vel_error": 3.2795395363231377,
+        "worst_vel_error": 7.98516695217987,
+        "final_pos_error": 4.0696936121432845,
+        "final_vel_error": 5.555283495645444,
+        "id": "mj_traj_e0113.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.04103361675606545,
+        "worst_pos_error": 0.11177119824488096,
+        "avg_vel_error": 0.08902526296475632,
+        "worst_vel_error": 0.5045714857051232,
+        "final_pos_error": 0.1002535602086953,
+        "final_vel_error": 0.03519089907606266,
+        "id": "mj_traj_e0113.txt"
+      }
+    },
+    {
+      "id": "traj_844.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.5219660275653326,
+        "worst_pos_error": 1.1556863006458684,
+        "avg_vel_error": 0.3989141297606859,
+        "worst_vel_error": 0.812833551194198,
+        "final_pos_error": 1.1475544492584415,
+        "final_vel_error": 0.812833551194198,
+        "id": "traj_844.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.08738280192909677,
+        "worst_pos_error": 0.1831544681944497,
+        "avg_vel_error": 0.0298380338074924,
+        "worst_vel_error": 0.032914620729055634,
+        "final_pos_error": 0.1831544681944497,
+        "final_vel_error": 0.03251710394655427,
+        "id": "traj_844.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1055.txt",
+      "traj_len": 93,
+      "poly": {
+        "avg_pos_error": 1.6645287237534483,
+        "worst_pos_error": 3.8944592491294547,
+        "avg_vel_error": 5.234292601921946,
+        "worst_vel_error": 16.427652311244035,
+        "final_pos_error": 3.8196075828462748,
+        "final_vel_error": 9.893707592385736,
+        "id": "mj_traj_e1055.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.0449313847354385,
+        "worst_pos_error": 0.12570470598450068,
+        "avg_vel_error": 0.10134265577045223,
+        "worst_vel_error": 0.7524006704555595,
+        "final_pos_error": 0.12570470598450068,
+        "final_vel_error": 0.0682938458631756,
+        "id": "mj_traj_e1055.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1312.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.323644402858596,
+        "worst_pos_error": 4.397435347868798,
+        "avg_vel_error": 5.812213259817599,
+        "worst_vel_error": 14.315534337360496,
+        "final_pos_error": 2.7154756787337364,
+        "final_vel_error": 6.774880505179261,
+        "id": "mj_traj_e1312.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.16514244808338802,
+        "worst_pos_error": 0.23818881245791695,
+        "avg_vel_error": 0.07281799679357488,
+        "worst_vel_error": 0.29209499183609594,
+        "final_pos_error": 0.23818881245791695,
+        "final_vel_error": 0.024771764857244034,
+        "id": "mj_traj_e1312.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1440.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 0.8853412062333429,
+        "worst_pos_error": 4.352398515347205,
+        "avg_vel_error": 4.240065131571845,
+        "worst_vel_error": 15.414547409900901,
+        "final_pos_error": 4.352398515347205,
+        "final_vel_error": 5.072482640580353,
+        "id": "mj_traj_e1440.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.04305880196759064,
+        "worst_pos_error": 0.08189021016317868,
+        "avg_vel_error": 0.06422643080328469,
+        "worst_vel_error": 0.24515744602111564,
+        "final_pos_error": 0.03348670015325273,
+        "final_vel_error": 0.022949517619979334,
+        "id": "mj_traj_e1440.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1999.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 1.7106114852632408,
+        "worst_pos_error": 4.362402696066684,
+        "avg_vel_error": 4.323585348099128,
+        "worst_vel_error": 15.722330789007126,
+        "final_pos_error": 3.0040294136140355,
+        "final_vel_error": 15.722330789007126,
+        "id": "mj_traj_e1999.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.1415879442092371,
+        "worst_pos_error": 0.23572791239742102,
+        "avg_vel_error": 0.09971127421294916,
+        "worst_vel_error": 0.5086163066977345,
+        "final_pos_error": 0.23572791239742102,
+        "final_vel_error": 0.09559758754745341,
+        "id": "mj_traj_e1999.txt"
+      }
+    },
+    {
+      "id": "traj_472.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.1805485100261271,
+        "worst_pos_error": 0.5422104682525346,
+        "avg_vel_error": 0.06581947122268395,
+        "worst_vel_error": 0.133851543879695,
+        "final_pos_error": 0.5422104682525346,
+        "final_vel_error": 0.133851543879695,
+        "id": "traj_472.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.019956268847926263,
+        "worst_pos_error": 0.037755203351529786,
+        "avg_vel_error": 0.011015498149567125,
+        "worst_vel_error": 0.01177591848726656,
+        "final_pos_error": 0.037755203351529786,
+        "final_vel_error": 0.011594811521465374,
+        "id": "traj_472.txt"
+      }
+    },
+    {
+      "id": "traj_867.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.01300973207986059,
+        "worst_pos_error": 0.03715307767560165,
+        "avg_vel_error": 0.013416854651146087,
+        "worst_vel_error": 0.026343212787370555,
+        "final_pos_error": 0.03715307767560165,
+        "final_vel_error": 0.026343212787370555,
+        "id": "traj_867.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03722188842062039,
+        "worst_pos_error": 0.07535442744873433,
+        "avg_vel_error": 0.01217178673210065,
+        "worst_vel_error": 0.012603053847222443,
+        "final_pos_error": 0.07535442744873433,
+        "final_vel_error": 0.012574388515878377,
+        "id": "traj_867.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0076.txt",
+      "traj_len": 97,
+      "poly": {
+        "avg_pos_error": 1.2020806945071247,
+        "worst_pos_error": 3.5423344793298077,
+        "avg_vel_error": 5.440672854619588,
+        "worst_vel_error": 18.822402403510942,
+        "final_pos_error": 2.4476459415559693,
+        "final_vel_error": 5.698615141835827,
+        "id": "mj_traj_e0076.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.030888502578907334,
+        "worst_pos_error": 0.07898545912983389,
+        "avg_vel_error": 0.07606890410312649,
+        "worst_vel_error": 0.1983557973667318,
+        "final_pos_error": 0.05905202898878516,
+        "final_vel_error": 0.05815353754041747,
+        "id": "mj_traj_e0076.txt"
+      }
+    },
+    {
+      "id": "traj_440.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.39723030546389715,
+        "worst_pos_error": 1.1568371697012267,
+        "avg_vel_error": 0.17998511686787969,
+        "worst_vel_error": 0.36831675065704983,
+        "final_pos_error": 1.1568371697012267,
+        "final_vel_error": 0.36831675065704983,
+        "id": "traj_440.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.10234556230094462,
+        "worst_pos_error": 0.21458858759185911,
+        "avg_vel_error": 0.031848158029792975,
+        "worst_vel_error": 0.035867865993801006,
+        "final_pos_error": 0.21458858759185911,
+        "final_vel_error": 0.0338100851058777,
+        "id": "traj_440.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1359.txt",
+      "traj_len": 98,
+      "poly": {
+        "avg_pos_error": 1.7360724162778673,
+        "worst_pos_error": 7.021109375127386,
+        "avg_vel_error": 5.6572248740330995,
+        "worst_vel_error": 21.358728765829582,
+        "final_pos_error": 7.021109375127386,
+        "final_vel_error": 8.315877670598853,
+        "id": "mj_traj_e1359.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.04792830049156724,
+        "worst_pos_error": 0.10239129560295977,
+        "avg_vel_error": 0.07442546525095342,
+        "worst_vel_error": 0.4096732620556616,
+        "final_pos_error": 0.09873453086835388,
+        "final_vel_error": 0.06457579060223412,
+        "id": "mj_traj_e1359.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0831.txt",
+      "traj_len": 91,
+      "poly": {
+        "avg_pos_error": 1.2105779961223777,
+        "worst_pos_error": 4.02909898907814,
+        "avg_vel_error": 3.687453583128984,
+        "worst_vel_error": 15.145250962375483,
+        "final_pos_error": 3.403220923320412,
+        "final_vel_error": 15.145250962375483,
+        "id": "mj_traj_e0831.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.036021825312530675,
+        "worst_pos_error": 0.07092889685266388,
+        "avg_vel_error": 0.09428190746061749,
+        "worst_vel_error": 0.5697449312740261,
+        "final_pos_error": 0.07092889685266388,
+        "final_vel_error": 0.2286602014377876,
+        "id": "mj_traj_e0831.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1251.txt",
+      "traj_len": 92,
+      "poly": {
+        "avg_pos_error": 2.3705106262299838,
+        "worst_pos_error": 5.090410785437156,
+        "avg_vel_error": 5.47243012649736,
+        "worst_vel_error": 17.441511477309504,
+        "final_pos_error": 3.811527175685774,
+        "final_vel_error": 8.87080499818858,
+        "id": "mj_traj_e1251.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.16966059079577467,
+        "worst_pos_error": 0.26927500446773234,
+        "avg_vel_error": 0.10657584908181776,
+        "worst_vel_error": 0.7402746083556891,
+        "final_pos_error": 0.23363879522045078,
+        "final_vel_error": 0.25462365163793865,
+        "id": "mj_traj_e1251.txt"
+      }
+    },
+    {
+      "id": "traj_110.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.7481831352229893,
+        "worst_pos_error": 1.8043375894893183,
+        "avg_vel_error": 0.3999590293540542,
+        "worst_vel_error": 0.8315076557814143,
+        "final_pos_error": 1.8043375894893183,
+        "final_vel_error": 0.8315076557814143,
+        "id": "traj_110.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.010099459837290947,
+        "worst_pos_error": 0.022315711152019115,
+        "avg_vel_error": 0.0077101647504138875,
+        "worst_vel_error": 0.015228417324088302,
+        "final_pos_error": 0.021949998947999125,
+        "final_vel_error": 0.015228417324088302,
+        "id": "traj_110.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1965.txt",
+      "traj_len": 98,
+      "poly": {
+        "avg_pos_error": 1.835062223445317,
+        "worst_pos_error": 5.9694568399934225,
+        "avg_vel_error": 5.816591207602537,
+        "worst_vel_error": 18.919877592664935,
+        "final_pos_error": 4.779619540403397,
+        "final_vel_error": 18.919877592664935,
+        "id": "mj_traj_e1965.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06780509836758047,
+        "worst_pos_error": 0.1192909198318968,
+        "avg_vel_error": 0.08662655383646581,
+        "worst_vel_error": 0.30760581134019327,
+        "final_pos_error": 0.07112517266982847,
+        "final_vel_error": 0.20123808065211224,
+        "id": "mj_traj_e1965.txt"
+      }
+    },
+    {
+      "id": "traj_023.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 1.801645344858272,
+        "worst_pos_error": 4.5788972390055,
+        "avg_vel_error": 0.6849839968347591,
+        "worst_vel_error": 1.4092072139525837,
+        "final_pos_error": 4.5788972390055,
+        "final_vel_error": 1.4092072139525837,
+        "id": "traj_023.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.03712119604739173,
+        "worst_pos_error": 0.06167720966228748,
+        "avg_vel_error": 0.007144476720199696,
+        "worst_vel_error": 0.02427060244539286,
+        "final_pos_error": 0.06167720966228748,
+        "final_vel_error": 0.004548798907393112,
+        "id": "traj_023.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0295.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 0.8404603829088564,
+        "worst_pos_error": 2.711404748768681,
+        "avg_vel_error": 3.3563016108179897,
+        "worst_vel_error": 13.086360854981962,
+        "final_pos_error": 0.5478273845290251,
+        "final_vel_error": 9.058434399856726,
+        "id": "mj_traj_e0295.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.04209873388364352,
+        "worst_pos_error": 0.08466547564377098,
+        "avg_vel_error": 0.08095863553723845,
+        "worst_vel_error": 0.3602074764243154,
+        "final_pos_error": 0.05456200291978925,
+        "final_vel_error": 0.11366672619178012,
+        "id": "mj_traj_e0295.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1471.txt",
+      "traj_len": 91,
+      "poly": {
+        "avg_pos_error": 1.212954128068734,
+        "worst_pos_error": 3.4326158797409905,
+        "avg_vel_error": 3.139078371549865,
+        "worst_vel_error": 9.195781645121116,
+        "final_pos_error": 1.6014165745865845,
+        "final_vel_error": 4.7207551167179895,
+        "id": "mj_traj_e1471.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.07659488551901907,
+        "worst_pos_error": 0.15046120630697074,
+        "avg_vel_error": 0.07034035691206707,
+        "worst_vel_error": 0.398294554578223,
+        "final_pos_error": 0.11101136446367516,
+        "final_vel_error": 0.10549634118705048,
+        "id": "mj_traj_e1471.txt"
+      }
+    },
+    {
+      "id": "traj_631.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.8444893722171617,
+        "worst_pos_error": 1.537672119950804,
+        "avg_vel_error": 7.606148767820356,
+        "worst_vel_error": 15.714965704984667,
+        "final_pos_error": 1.027048570942061,
+        "final_vel_error": 15.714965704984667,
+        "id": "traj_631.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.16303740574226494,
+        "worst_pos_error": 0.27953787660680796,
+        "avg_vel_error": 0.046694009632288716,
+        "worst_vel_error": 0.1430827168061232,
+        "final_pos_error": 0.24443795026631834,
+        "final_vel_error": 0.02342192262071609,
+        "id": "traj_631.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1858.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.065664290920827,
+        "worst_pos_error": 2.370200665016559,
+        "avg_vel_error": 3.195707762921737,
+        "worst_vel_error": 10.984378471050078,
+        "final_pos_error": 0.5150922157234088,
+        "final_vel_error": 4.462683338080995,
+        "id": "mj_traj_e1858.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06888683878330192,
+        "worst_pos_error": 0.12457990332273627,
+        "avg_vel_error": 0.06363869142435254,
+        "worst_vel_error": 0.5311040196874808,
+        "final_pos_error": 0.10728621388721604,
+        "final_vel_error": 0.06243386591425191,
+        "id": "mj_traj_e1858.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0435.txt",
+      "traj_len": 98,
+      "poly": {
+        "avg_pos_error": 2.1751948906591183,
+        "worst_pos_error": 4.521397023857176,
+        "avg_vel_error": 5.736956089228772,
+        "worst_vel_error": 15.481514604336235,
+        "final_pos_error": 3.2674954629236375,
+        "final_vel_error": 15.481514604336235,
+        "id": "mj_traj_e0435.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.11006151226017621,
+        "worst_pos_error": 0.3061973811123728,
+        "avg_vel_error": 0.10055528415350001,
+        "worst_vel_error": 0.5594080703099837,
+        "final_pos_error": 0.3061973811123728,
+        "final_vel_error": 0.13365529577094387,
+        "id": "mj_traj_e0435.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0200.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 0.9352449576712031,
+        "worst_pos_error": 4.064191254972113,
+        "avg_vel_error": 5.3421779657460045,
+        "worst_vel_error": 15.997595604261567,
+        "final_pos_error": 4.005386377795596,
+        "final_vel_error": 14.70020494458015,
+        "id": "mj_traj_e0200.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.1245224536087871,
+        "worst_pos_error": 0.2715824770146547,
+        "avg_vel_error": 0.10472379105244817,
+        "worst_vel_error": 0.5249404328556752,
+        "final_pos_error": 0.26227573983337477,
+        "final_vel_error": 0.07570255546344838,
+        "id": "mj_traj_e0200.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0577.txt",
+      "traj_len": 96,
+      "poly": {
+        "avg_pos_error": 1.616758414512729,
+        "worst_pos_error": 5.035562854813059,
+        "avg_vel_error": 4.6422750570657145,
+        "worst_vel_error": 14.66169454046397,
+        "final_pos_error": 5.035562854813059,
+        "final_vel_error": 5.712165874909478,
+        "id": "mj_traj_e0577.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.05310416747316624,
+        "worst_pos_error": 0.1796951378863013,
+        "avg_vel_error": 0.09439471839545786,
+        "worst_vel_error": 0.4389898379233187,
+        "final_pos_error": 0.1796951378863013,
+        "final_vel_error": 0.035541128464782766,
+        "id": "mj_traj_e0577.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1694.txt",
+      "traj_len": 93,
+      "poly": {
+        "avg_pos_error": 0.9721056719768524,
+        "worst_pos_error": 3.2191997941168715,
+        "avg_vel_error": 5.914116297352314,
+        "worst_vel_error": 12.689912306927198,
+        "final_pos_error": 2.0191750388340557,
+        "final_vel_error": 9.891304847778981,
+        "id": "mj_traj_e1694.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.09990284600563097,
+        "worst_pos_error": 0.14607708920994203,
+        "avg_vel_error": 0.0640467841264776,
+        "worst_vel_error": 0.4248041681657373,
+        "final_pos_error": 0.12358507480755877,
+        "final_vel_error": 0.04528565911725497,
+        "id": "mj_traj_e1694.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1972.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 1.4606740139606602,
+        "worst_pos_error": 3.3758684354523796,
+        "avg_vel_error": 6.576936699914324,
+        "worst_vel_error": 20.689490678036066,
+        "final_pos_error": 1.689008279853259,
+        "final_vel_error": 6.604783964086364,
+        "id": "mj_traj_e1972.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.02335387315318882,
+        "worst_pos_error": 0.058434890152758844,
+        "avg_vel_error": 0.10552924053165819,
+        "worst_vel_error": 0.42181095996584955,
+        "final_pos_error": 0.058434890152758844,
+        "final_vel_error": 0.016165590321805094,
+        "id": "mj_traj_e1972.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1603.txt",
+      "traj_len": 91,
+      "poly": {
+        "avg_pos_error": 1.376318392521153,
+        "worst_pos_error": 3.7075931173398775,
+        "avg_vel_error": 4.006227227277534,
+        "worst_vel_error": 9.722370218539293,
+        "final_pos_error": 3.7075931173398775,
+        "final_vel_error": 5.369614447237388,
+        "id": "mj_traj_e1603.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.06712217974056317,
+        "worst_pos_error": 0.1007724340819625,
+        "avg_vel_error": 0.07418477336042582,
+        "worst_vel_error": 0.5366493790287127,
+        "final_pos_error": 0.08642000342684122,
+        "final_vel_error": 0.004419926181061619,
+        "id": "mj_traj_e1603.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0039.txt",
+      "traj_len": 96,
+      "poly": {
+        "avg_pos_error": 3.414381951119792,
+        "worst_pos_error": 7.87823322477712,
+        "avg_vel_error": 5.627629422519118,
+        "worst_vel_error": 17.908646607001998,
+        "final_pos_error": 6.902600523097087,
+        "final_vel_error": 17.908646607001998,
+        "id": "mj_traj_e0039.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.10690352175757649,
+        "worst_pos_error": 0.18081830382021716,
+        "avg_vel_error": 0.09967156504670904,
+        "worst_vel_error": 0.447979204525042,
+        "final_pos_error": 0.17420985029695982,
+        "final_vel_error": 0.048130721620490764,
+        "id": "mj_traj_e0039.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0495.txt",
+      "traj_len": 94,
+      "poly": {
+        "avg_pos_error": 1.452996268336335,
+        "worst_pos_error": 4.830957329541299,
+        "avg_vel_error": 5.665139358299628,
+        "worst_vel_error": 17.32844339554657,
+        "final_pos_error": 4.5981458922316145,
+        "final_vel_error": 5.7011541544683375,
+        "id": "mj_traj_e0495.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.1355068424981151,
+        "worst_pos_error": 0.2717225827970328,
+        "avg_vel_error": 0.08350834401113864,
+        "worst_vel_error": 0.32472586120638913,
+        "final_pos_error": 0.2717225827970328,
+        "final_vel_error": 0.20964173096827834,
+        "id": "mj_traj_e0495.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1293.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.013999422245749,
+        "worst_pos_error": 3.0771450433171608,
+        "avg_vel_error": 4.277653557479113,
+        "worst_vel_error": 14.635119909960743,
+        "final_pos_error": 1.6191321333022195,
+        "final_vel_error": 4.777165657766911,
+        "id": "mj_traj_e1293.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.037031181513050376,
+        "worst_pos_error": 0.059831455406017885,
+        "avg_vel_error": 0.06020378671710538,
+        "worst_vel_error": 0.31986105124585695,
+        "final_pos_error": 0.03605716896208545,
+        "final_vel_error": 0.010708189894950924,
+        "id": "mj_traj_e1293.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1016.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 1.390728007202741,
+        "worst_pos_error": 4.820609403749122,
+        "avg_vel_error": 3.9224705080777515,
+        "worst_vel_error": 15.45825486710164,
+        "final_pos_error": 4.820609403749122,
+        "final_vel_error": 5.216294132703511,
+        "id": "mj_traj_e1016.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.060262956413461626,
+        "worst_pos_error": 0.099093846205239,
+        "avg_vel_error": 0.06099061197733023,
+        "worst_vel_error": 0.3979576961280591,
+        "final_pos_error": 0.06898906693933947,
+        "final_vel_error": 0.025017454669296054,
+        "id": "mj_traj_e1016.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e0105.txt",
+      "traj_len": 91,
+      "poly": {
+        "avg_pos_error": 1.4627452021255232,
+        "worst_pos_error": 3.9225499801249453,
+        "avg_vel_error": 4.378558816596746,
+        "worst_vel_error": 20.629233497380316,
+        "final_pos_error": 2.928530253142415,
+        "final_vel_error": 20.629233497380316,
+        "id": "mj_traj_e0105.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.0751256842524329,
+        "worst_pos_error": 0.16514872694278188,
+        "avg_vel_error": 0.09486399771919633,
+        "worst_vel_error": 0.4195359718537177,
+        "final_pos_error": 0.16477623241984016,
+        "final_vel_error": 0.030884009338538305,
+        "id": "mj_traj_e0105.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1915.txt",
+      "traj_len": 95,
+      "poly": {
+        "avg_pos_error": 2.063839981767813,
+        "worst_pos_error": 7.284108508457608,
+        "avg_vel_error": 5.6695870167864095,
+        "worst_vel_error": 14.496277026635171,
+        "final_pos_error": 6.257257207464774,
+        "final_vel_error": 9.236543477514868,
+        "id": "mj_traj_e1915.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.04716115695198068,
+        "worst_pos_error": 0.08535293007428928,
+        "avg_vel_error": 0.09933734264107996,
+        "worst_vel_error": 0.704714566414278,
+        "final_pos_error": 0.060719919553771415,
+        "final_vel_error": 0.0928108993543233,
+        "id": "mj_traj_e1915.txt"
+      }
+    },
+    {
+      "id": "traj_706.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 5.953079800579037,
+        "worst_pos_error": 16.06833063040388,
+        "avg_vel_error": 2.049725319701778,
+        "worst_vel_error": 4.257618302464207,
+        "final_pos_error": 16.06833063040388,
+        "final_vel_error": 4.257618302464207,
+        "id": "traj_706.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.05935974966986025,
+        "worst_pos_error": 0.10030996460336643,
+        "avg_vel_error": 0.019737359139110625,
+        "worst_vel_error": 0.05449941519215195,
+        "final_pos_error": 0.10030996460336643,
+        "final_vel_error": 0.01582122453992149,
+        "id": "traj_706.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1139.txt",
+      "traj_len": 93,
+      "poly": {
+        "avg_pos_error": 1.08613023771043,
+        "worst_pos_error": 3.749265894297265,
+        "avg_vel_error": 2.7434761292809973,
+        "worst_vel_error": 6.758360879017852,
+        "final_pos_error": 2.6870467338826836,
+        "final_vel_error": 6.758360879017852,
+        "id": "mj_traj_e1139.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.040580034436539736,
+        "worst_pos_error": 0.09275130469521735,
+        "avg_vel_error": 0.055262605506481904,
+        "worst_vel_error": 0.17750659947336056,
+        "final_pos_error": 0.08218476646237928,
+        "final_vel_error": 0.01802646049118444,
+        "id": "mj_traj_e1139.txt"
+      }
+    },
+    {
+      "id": "traj_974.txt",
+      "traj_len": 99,
+      "poly": {
+        "avg_pos_error": 0.7418772416933018,
+        "worst_pos_error": 1.4122053118814661,
+        "avg_vel_error": 2.4482607293337946,
+        "worst_vel_error": 5.01334871391226,
+        "final_pos_error": 0.8668673474256982,
+        "final_vel_error": 5.01334871391226,
+        "id": "traj_974.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.057884235475419266,
+        "worst_pos_error": 0.11149316931552997,
+        "avg_vel_error": 0.013876294451196338,
+        "worst_vel_error": 0.038600064325515916,
+        "final_pos_error": 0.11149316931552997,
+        "final_vel_error": 0.0072395301525113144,
+        "id": "traj_974.txt"
+      }
+    },
+    {
+      "id": "mj_traj_e1616.txt",
+      "traj_len": 96,
+      "poly": {
+        "avg_pos_error": 1.5579111953231382,
+        "worst_pos_error": 3.912178280054805,
+        "avg_vel_error": 6.633761052502192,
+        "worst_vel_error": 19.30902001170273,
+        "final_pos_error": 3.912178280054805,
+        "final_vel_error": 15.762989806478396,
+        "id": "mj_traj_e1616.txt"
+      },
+      "nn": {
+        "avg_pos_error": 0.13475062147269154,
+        "worst_pos_error": 0.1966250811897402,
+        "avg_vel_error": 0.06811079337537544,
+        "worst_vel_error": 0.28420130062461413,
+        "final_pos_error": 0.1966250811897402,
+        "final_vel_error": 0.04810938881698732,
+        "id": "mj_traj_e1616.txt"
+      }
+    }
+  ]
+}

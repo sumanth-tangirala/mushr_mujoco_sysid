@@ -1,0 +1,3 @@
+method,avg_pos_error_m,avg_pos_error_std_m,worst_pos_error_mean_m,worst_pos_error_max_m,avg_vel_error_ms,avg_vel_error_std_ms,worst_vel_error_mean_ms,worst_vel_error_max_ms,inference_speed_steps_per_sec,num_trajectories_evaluated
+Polynomial,1.575408,1.056392,4.045039,16.068331,4.633355,2.450049,12.686373,25.661359,N/A (analytical),100
+Neural_Network,0.081164,0.054485,0.158911,0.602698,0.069086,0.031468,0.329645,0.752401,586.2,100

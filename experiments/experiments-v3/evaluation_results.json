@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-01-05T04:20:57.826647",
+  "args": {
+    "base_dir": "/common/home/st1122/Projects/mushr_mujoco_sysid/experiments/v3_allstars_controls_vary",
+    "eval_script": "/common/home/st1122/Projects/mushr_mujoco_sysid/scripts/eval.py",
+    "delay_hours": 4.0,
+    "num_eval_trajs": 100,
+    "random": true,
+    "seed": null,
+    "no_delay": false
+  },
+  "results": {
+    "v3A_struct_exp2_replay_seed4": {
+      "success": true,
+      "message": "Success"
+    },
+    "v3B_struct_h10_tf0_seed4": {
+      "success": true,
+      "message": "Success"
+    },
+    "v3C_struct_h20_tf0_seed4": {
+      "success": true,
+      "message": "Success"
+    },
+    "v3D_struct_h20_tf0_seed2": {
+      "success": true,
+      "message": "Success"
+    },
+    "v3E_struct_h20_tf0_resl2_0p01_seed4": {
+      "success": true,
+      "message": "Success"
+    },
+    "v3F_struct_h20_tf0_pose_xytheta_seed4": {
+      "success": true,
+      "message": "Success"
+    },
+    "v3G_direct_no_adapter_h20_tf0_seed4": {
+      "success": true,
+      "message": "Success"
+    },
+    "v3H_direct_with_adapter_h20_tf0_seed4": {
+      "success": true,
+      "message": "Success"
+    }
+  },
+  "summary": {
+    "total": 8,
+    "successful": 8,
+    "failed": 0
+  }
+}
