@@ -1,0 +1,30 @@
+name: mushr-sysid
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Core Python
+  - python=3.10
+
+  # Deep Learning
+  - pytorch=2.5.1
+  - pytorch-cuda=12.4  # Adjust based on your CUDA version, or remove for CPU-only
+
+  # Scientific Computing
+  - numpy=2.2.6
+  - matplotlib=3.10.8
+
+  # Utilities
+  - pyyaml=6.0.3
+  - pip
+
+  # Development tools
+  - setuptools
+
+  # ROS dependencies (installed via pip)
+  - pip:
+    - rospy==1.16.0
+    - rospkg==1.6.1
+    - -e .
