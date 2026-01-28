@@ -1,0 +1,6 @@
+{
+  "dtype": "float32",
+  "dt": 0.1,
+  "model_type": "structured",
+  "model_file": "structured_aux.ts.pt"
+}

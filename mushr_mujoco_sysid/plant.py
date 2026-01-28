@@ -72,8 +72,6 @@ class MushrPlant:
 
     def rotation_mat(self, theta):
         theta_t = torch.as_tensor(theta)
-        device = theta_t.device
-        dtype = theta_t.dtype
         c = torch.cos(theta_t)
         s = torch.sin(theta_t)
         row1 = torch.stack([c, -s], dim=-1)
@@ -123,10 +121,11 @@ class MushrPlant:
         delta = (
             delta_override if delta_override is not None else ut[..., self.steering_idx]
         )
-        AccIn = acc_override if acc_override is not None else ut[..., self.velocity_idx]
+        Uaccel = ut[..., self.velocity_idx]
+        AccIn = acc_override if acc_override is not None else Uaccel
 
         Vprev_pos = torch.norm(xd0[..., :2], dim=-1)
-        Vprev = torch.copysign(Vprev_pos, AccIn)
+        Vprev = torch.copysign(Vprev_pos, Uaccel)
 
         beta_val = self.beta(delta)
         beta_prev = torch.atan2(xd0[..., 1], xd0[..., 0])
@@ -136,14 +135,13 @@ class MushrPlant:
 
         zeros_like_beta = torch.zeros_like(beta_val)
         T_beta = self.SE2(zeros_like_beta, zeros_like_beta, beta_val)
-        T_beta_prev = self.SE2(zeros_like_beta, zeros_like_beta, beta_prev)
 
         # For SE(2) elements with zero translation (x=y=0), the inverse is just
         # the rotation by -theta. Avoiding a generic matrix inverse here also
         # makes this path more CUDA-Graph friendly.
         Tbpinv = self.SE2(zeros_like_beta, zeros_like_beta, -beta_prev)
         qd0_adj = self.adjoint(Tbpinv, xd0)
-        qd0_sign = torch.copysign(torch.ones_like(AccIn), AccIn).unsqueeze(-1)
+        qd0_sign = torch.copysign(torch.ones_like(Uaccel), Uaccel).unsqueeze(-1)
         qd0 = qd0_sign * qd0_adj
 
         zeros = torch.zeros_like(AccIn)
@@ -151,7 +149,7 @@ class MushrPlant:
         xd1_zero = self.integrate_euler(qd0, qdd, dt)
 
         Vcurr_pos = torch.norm(xd1_zero[..., 0:2], dim=-1)
-        Vcurr = torch.copysign(Vcurr_pos, AccIn)
+        Vcurr = torch.copysign(Vcurr_pos, Uaccel)
 
         thd_prev = omega_prev * Vprev
         thd_curr = omega * Vcurr
